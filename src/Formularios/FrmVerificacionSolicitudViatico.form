@@ -37,7 +37,9 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Solicitudes de Viaticos"/>
+            <TitledBorder title="Solicitudes de Viaticos">
+              <Font PropertyName="font" name="Segoe UI" size="12" style="1"/>
+            </TitledBorder>
           </Border>
         </Property>
       </Properties>
@@ -54,13 +56,11 @@
                   <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnListar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnComentar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnAsignarCaso" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace pref="107" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -79,7 +79,6 @@
                       <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnListar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnComentar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAsignarCaso" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
@@ -129,11 +128,9 @@
             <Component class="javax.swing.JTable" name="tablaVerificacion">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="Codigo Solicitud" type="java.lang.String"/>
-                    <Column editable="true" title="Remitente" type="java.lang.String"/>
-                    <Column editable="true" title="Fecha de envio" type="java.lang.Object"/>
-                    <Column editable="true" title="Comentarios" type="java.lang.Boolean"/>
+                  <Table columnCount="3" rowCount="0">
+                    <Column editable="true" title="Codigo Solicitud de Viatico" type="java.lang.String"/>
+                    <Column editable="true" title="Codigo de Remitente (comisionado)" type="java.lang.String"/>
                     <Column editable="true" title="Estado" type="java.lang.String"/>
                   </Table>
                 </Property>
@@ -151,14 +148,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnComentar">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/layer_edit.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Comentar"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnAsignarCaso">
           <Properties>

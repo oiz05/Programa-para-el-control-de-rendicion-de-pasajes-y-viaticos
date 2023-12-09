@@ -12,14 +12,20 @@ import javax.swing.table.DefaultTableModel;
  * @author EDWIN
  */
 public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
-    private DefaultTableModel dtm;
-    private Object[] o=new Object[5];
+    /*private DefaultTableModel dtm;
+    private Object[] o=new Object[5];*/
+    DefaultTableModel modelo = new DefaultTableModel();
     /**
      * Creates new form FrmRemitirSolicitudAContador
      */
     public FrmRemitirSolicitudAContador() {
         initComponents();
-        dtm= (DefaultTableModel) jSolicitudesEnviadas.getModel();
+        //dtm= (DefaultTableModel) jSolicitudesEnviadas.getModel();
+        this.jSolicitudesEnviadas.setModel(modelo);
+        this.modelo.addColumn("Codigo Encargado Administrativo");
+        this.modelo.addColumn("Codigo de Solicitud");
+        this.modelo.addColumn("Codigo Contador");
+        
     }
 
     /**
@@ -37,7 +43,6 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
         tfCodigoEncargadoAdministrativo = new javax.swing.JTextField();
         tfCodigoContador = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         tfCodigoSolicitud = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -70,16 +75,7 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
-
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 90, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
 
         jLabel2.setText("Codigo de Solicitud:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, -1, -1));
@@ -88,14 +84,11 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Solicitudes Enviadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jSolicitudesEnviadas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo E.A.", "Codigo Solicitud", "Codigo Contador"
+        jSolicitudesEnviadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSolicitudesEnviadasMouseClicked(evt);
             }
-        ));
+        });
         jScrollPane1.setViewportView(jSolicitudesEnviadas);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 541, 240));
@@ -106,10 +99,20 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
 
         btnEditarEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/layer_edit.png"))); // NOI18N
         btnEditarEnvio.setText("Editar");
+        btnEditarEnvio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarEnvioActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEditarEnvio, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, -1, -1));
 
         btnEliminarEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
         btnEliminarEnvio.setText("Eliminar");
+        btnEliminarEnvio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEnvioActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEliminarEnvio, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, -1, -1));
 
         btnBuscarEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/find.png"))); // NOI18N
@@ -118,6 +121,11 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
 
         btnNuevoEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pencil_add.png"))); // NOI18N
         btnNuevoEnvio.setText("Nuevo");
+        btnNuevoEnvio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoEnvioActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnNuevoEnvio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,7 +153,7 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String codEA=tfCodigoEncargadoAdministrativo.getText();
+       /* String codEA=tfCodigoEncargadoAdministrativo.getText();
         String codCo=tfCodigoContador.getText();
         String codSo=tfCodigoSolicitud.getText();
         
@@ -153,14 +161,64 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
         o[0]=codEA;
         o[1]=codSo;
         o[2]=codCo;
-        dtm.addRow(o);
+        dtm.addRow(o);*/
+       
+        this.modelo.addRow(new Object[]{
+            this.tfCodigoEncargadoAdministrativo.getText(),
+            this.tfCodigoSolicitud.getText(),
+            this.tfCodigoContador.getText(),
+            
+        });
         
         JOptionPane.showMessageDialog(this, "La solicitud se ha enviado correctamente.");
+        
+        tfCodigoEncargadoAdministrativo.setText("");
+        tfCodigoContador.setText("");
+        tfCodigoSolicitud.setText("");
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
+    int filas;
+    private void btnEditarEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEnvioActionPerformed
+        String []datos=new String[3];
+        datos[0]=tfCodigoEncargadoAdministrativo.getText();
+        datos[1]=tfCodigoSolicitud.getText();
+        datos[2]=tfCodigoContador.getText();
+        
+        
+        
+        for(int i=0; i<jSolicitudesEnviadas.getColumnCount();i++){
+            modelo.setValueAt(datos[i], filas, i);
+        }
+    }//GEN-LAST:event_btnEditarEnvioActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        Limpiar();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    private void btnEliminarEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEnvioActionPerformed
+        int fila_seleccionada = jSolicitudesEnviadas.getSelectedRow();
+        if(fila_seleccionada>=0){
+            modelo.removeRow(fila_seleccionada);
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fila por favor");
+        }
+        
+        tfCodigoEncargadoAdministrativo.setText("");
+        tfCodigoContador.setText("");
+        tfCodigoSolicitud.setText("");
+        
+    }//GEN-LAST:event_btnEliminarEnvioActionPerformed
+
+    private void btnNuevoEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEnvioActionPerformed
+        tfCodigoEncargadoAdministrativo.setText("");
+        tfCodigoContador.setText("");
+        tfCodigoSolicitud.setText("");
+    }//GEN-LAST:event_btnNuevoEnvioActionPerformed
+
+    private void jSolicitudesEnviadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSolicitudesEnviadasMouseClicked
+        int fila_seleccionada = jSolicitudesEnviadas.getSelectedRow();
+        tfCodigoEncargadoAdministrativo.setText(jSolicitudesEnviadas.getValueAt(fila_seleccionada, 0).toString());
+        tfCodigoSolicitud.setText(jSolicitudesEnviadas.getValueAt(fila_seleccionada, 1).toString());
+        tfCodigoContador.setText(jSolicitudesEnviadas.getValueAt(fila_seleccionada,2).toString());
+
+        filas=fila_seleccionada;
+    }//GEN-LAST:event_jSolicitudesEnviadasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -208,7 +266,6 @@ public class FrmRemitirSolicitudAContador extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarEnvio;
     private javax.swing.JButton btnEliminarEnvio;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnNuevoEnvio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

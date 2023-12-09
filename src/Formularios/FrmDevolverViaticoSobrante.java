@@ -9,12 +9,22 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
-    private DefaultTableModel dtm;
-    private Object[] o=new Object[5];
+    /*private DefaultTableModel dtm;
+    private Object[] o=new Object[5];*/
+    DefaultTableModel modelo = new DefaultTableModel();
+    
     
     public FrmDevolverViaticoSobrante() {
+        /*initComponents();
+        dtm= (DefaultTableModel) jDevolucionesComisionado.getModel();*/
         initComponents();
-        dtm= (DefaultTableModel) jDevolucionesComisionado.getModel();
+        this.jDevolucionesTesoreria.setModel(modelo);
+        this.modelo.addColumn("Codigo de Comisionado");
+        this.modelo.addColumn("Codigo Destinatario");
+        this.modelo.addColumn("Monto Viatico");
+        this.modelo.addColumn("Gasto Total");
+        this.modelo.addColumn("Devolucion a Tesoreria");
+        
     }
 
     /**
@@ -36,13 +46,12 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
         tfMontoViatico = new javax.swing.JTextField();
         tfGastoTotal = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnCalcularDevolucionTesoreria = new javax.swing.JButton();
         tfDevolucionTesoreria = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jDevolucionesComisionado = new javax.swing.JTable();
+        jDevolucionesTesoreria = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         tfBusquedaDevolucionTeso = new javax.swing.JTextField();
         btnEditarDevolucionTeso = new javax.swing.JButton();
@@ -79,15 +88,6 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, -1, -1));
-
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 90, -1));
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
 
         btnCalcularDevolucionTesoreria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/account_balances.png"))); // NOI18N
@@ -103,15 +103,12 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Devoluciones para Tesoreria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jDevolucionesComisionado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo de Comisionado", "Codigo Destinatario", "Monto Viatico", "Gasto Total", "Devolucion Tesoreria"
+        jDevolucionesTesoreria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDevolucionesTesoreriaMouseClicked(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jDevolucionesComisionado);
+        });
+        jScrollPane1.setViewportView(jDevolucionesTesoreria);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 83, 680, 284));
 
@@ -121,10 +118,20 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
 
         btnEditarDevolucionTeso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/layer_edit.png"))); // NOI18N
         btnEditarDevolucionTeso.setText("Editar");
+        btnEditarDevolucionTeso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarDevolucionTesoActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEditarDevolucionTeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, -1, -1));
 
         btnEliminarDevolucionTeso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
         btnEliminarDevolucionTeso.setText("Eliminar");
+        btnEliminarDevolucionTeso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarDevolucionTesoActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEliminarDevolucionTeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, -1, -1));
 
         btnBuscarDevolucionTeso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/find.png"))); // NOI18N
@@ -133,6 +140,11 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
 
         btnNuevoDevolucionTeso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pencil_add.png"))); // NOI18N
         btnNuevoDevolucionTeso.setText("Nuevo");
+        btnNuevoDevolucionTeso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoDevolucionTesoActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnNuevoDevolucionTeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,8 +157,8 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +174,7 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String codCo=tfCodigoComisionado.getText();
+        /*String codCo=tfCodigoComisionado.getText();
         String codDesti=tfCodigoDestinatario.getText();
         String gasT=tfGastoTotal.getText();
         String devTeso=tfDevolucionTesoreria.getText();
@@ -174,14 +186,25 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
         o[2]=gasT;
         o[3]=monto.getMontoViatico();
         o[4]=devTeso;
-        dtm.addRow(o);
+        dtm.addRow(o);*/
+        
+        this.modelo.addRow(new Object[]{
+            this.tfCodigoComisionado.getText(),
+            this.tfCodigoDestinatario.getText(),
+            this.tfMontoViatico.getText(),
+            this.tfGastoTotal.getText(),
+            this.tfDevolucionTesoreria.getText(),
+        });
         
         JOptionPane.showMessageDialog(this, "La devolucion se ha realizado correctamente.");
+        
+        tfCodigoComisionado.setText("");
+        tfCodigoDestinatario.setText("");
+        tfMontoViatico.setText("");
+        tfGastoTotal.setText("");
+        tfDevolucionTesoreria.setText("");
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        Limpiar();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnCalcularDevolucionTesoreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularDevolucionTesoreriaActionPerformed
         double monto, gasT, devCom;
@@ -193,6 +216,53 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
 
         tfDevolucionTesoreria.setText(String.valueOf(devCom));
     }//GEN-LAST:event_btnCalcularDevolucionTesoreriaActionPerformed
+    int filas;
+    private void btnEditarDevolucionTesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarDevolucionTesoActionPerformed
+        String []datos=new String[5];
+        datos[0]=tfCodigoComisionado.getText();
+        datos[1]=tfCodigoDestinatario.getText();
+        datos[2]=tfMontoViatico.getText();
+        datos[3]=tfGastoTotal.getText();
+        datos[4]=tfDevolucionTesoreria.getText();
+        
+        for(int i=0; i<jDevolucionesTesoreria.getColumnCount();i++){
+            modelo.setValueAt(datos[i], filas, i);
+        }
+    }//GEN-LAST:event_btnEditarDevolucionTesoActionPerformed
+
+    private void btnEliminarDevolucionTesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDevolucionTesoActionPerformed
+        int fila_seleccionada = jDevolucionesTesoreria.getSelectedRow();
+        if(fila_seleccionada>=0){
+            modelo.removeRow(fila_seleccionada);
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fila por favor");
+        }
+        
+        tfCodigoComisionado.setText("");
+        tfCodigoDestinatario.setText("");
+        tfMontoViatico.setText("");
+        tfGastoTotal.setText("");
+        tfDevolucionTesoreria.setText("");
+        
+    }//GEN-LAST:event_btnEliminarDevolucionTesoActionPerformed
+
+    private void btnNuevoDevolucionTesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoDevolucionTesoActionPerformed
+        tfCodigoComisionado.setText("");
+        tfCodigoDestinatario.setText("");
+        tfMontoViatico.setText("");
+        tfGastoTotal.setText("");
+        tfDevolucionTesoreria.setText("");
+    }//GEN-LAST:event_btnNuevoDevolucionTesoActionPerformed
+
+    private void jDevolucionesTesoreriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDevolucionesTesoreriaMouseClicked
+        int fila_seleccionada = jDevolucionesTesoreria.getSelectedRow();
+        tfCodigoComisionado.setText(jDevolucionesTesoreria.getValueAt(fila_seleccionada, 0).toString());
+        tfCodigoDestinatario.setText(jDevolucionesTesoreria.getValueAt(fila_seleccionada, 1).toString());
+        tfGastoTotal.setText(jDevolucionesTesoreria.getValueAt(fila_seleccionada,2).toString());
+        tfMontoViatico.setText(jDevolucionesTesoreria.getValueAt(fila_seleccionada, 3).toString());      
+        tfDevolucionTesoreria.setText(jDevolucionesTesoreria.getValueAt(fila_seleccionada, 4).toString()); 
+        filas=fila_seleccionada;
+    }//GEN-LAST:event_jDevolucionesTesoreriaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -243,9 +313,8 @@ public class FrmDevolverViaticoSobrante extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarDevolucionTeso;
     private javax.swing.JButton btnEliminarDevolucionTeso;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnNuevoDevolucionTeso;
-    private javax.swing.JTable jDevolucionesComisionado;
+    private javax.swing.JTable jDevolucionesTesoreria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

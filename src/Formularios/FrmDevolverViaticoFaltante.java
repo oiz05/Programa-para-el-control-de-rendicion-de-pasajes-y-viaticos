@@ -13,14 +13,20 @@ import javax.swing.table.DefaultTableModel;
  * @author EDWIN
  */
 public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
-    private DefaultTableModel dtm;
-    private Object[] o=new Object[5];
+    /*private DefaultTableModel dtm;
+    private Object[] o=new Object[5];*/
+    DefaultTableModel modelo = new DefaultTableModel();
     /**
      * Creates new form FrmDevolverViaticoFaltante
      */
     public FrmDevolverViaticoFaltante() {
         initComponents();
-        dtm= (DefaultTableModel) jDevolucionesComisionado.getModel();
+        this.jDevolucionesComisionado.setModel(modelo);
+        this.modelo.addColumn("Codigo de tesorero");
+        this.modelo.addColumn("Codigo Destinatario");
+        this.modelo.addColumn("Gasto Total");
+        this.modelo.addColumn("Monto Viatico");
+        this.modelo.addColumn("Devolucion a Comisionado");
     }
 
     /**
@@ -42,7 +48,6 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
         tfMontoViatico = new javax.swing.JTextField();
         tfGastoTotal = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnCalcularDevolucionComisionado = new javax.swing.JButton();
         tfDevolucionComisionado = new javax.swing.JTextField();
@@ -84,16 +89,7 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, -1, -1));
-
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 90, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, -1, -1));
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
 
         btnCalcularDevolucionComisionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/account_balances.png"))); // NOI18N
@@ -109,14 +105,11 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Devoluciones para Comisionado\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jDevolucionesComisionado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo de Tesorero", "Codigo Destinatario", "Gasto Total", "Monto Viatico", "Devolucion Comisionado"
+        jDevolucionesComisionado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDevolucionesComisionadoMouseClicked(evt);
             }
-        ));
+        });
         jScrollPane1.setViewportView(jDevolucionesComisionado);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 83, 680, 284));
@@ -127,10 +120,20 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
 
         btnEditarDevolucionComi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/layer_edit.png"))); // NOI18N
         btnEditarDevolucionComi.setText("Editar");
+        btnEditarDevolucionComi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarDevolucionComiActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEditarDevolucionComi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, -1, -1));
 
         btnEliminarDevolucionComi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
         btnEliminarDevolucionComi.setText("Eliminar");
+        btnEliminarDevolucionComi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarDevolucionComiActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEliminarDevolucionComi, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, -1, -1));
 
         btnBuscarDevolucionComi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/find.png"))); // NOI18N
@@ -139,6 +142,11 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
 
         btnNuevoDevolucionComi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pencil_add.png"))); // NOI18N
         btnNuevoDevolucionComi.setText("Nuevo");
+        btnNuevoDevolucionComi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoDevolucionComiActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnNuevoDevolucionComi, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,7 +176,7 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String codTe=tfCodigoTesorero.getText();
+        /*String codTe=tfCodigoTesorero.getText();
         String codDesti=tfCodigoDestinatario.getText();
         String gasT=tfGastoTotal.getText();
         String devCom=tfDevolucionComisionado.getText();
@@ -180,14 +188,24 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
         o[2]=gasT;
         o[3]=monto.getMontoViatico();
         o[4]=devCom;
-        dtm.addRow(o);
+        dtm.addRow(o);*/
         
-        JOptionPane.showMessageDialog(this, "La devolucion se ha realizado correctamente.");
+        this.modelo.addRow(new Object[]{
+            this.tfCodigoTesorero.getText(),
+            this.tfCodigoDestinatario.getText(),
+            this.tfGastoTotal.getText(),
+            this.tfMontoViatico.getText(),
+            this.tfDevolucionComisionado.getText(),
+        });
+    
+        JOptionPane.showMessageDialog(this, "El deposito de viatico se ha realizado correctamente.");
+        //LIMPIAR
+        tfCodigoTesorero.setText("");
+        tfCodigoDestinatario.setText("");
+        tfMontoViatico.setText("");
+        tfGastoTotal.setText("");
+        tfDevolucionComisionado.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        Limpiar();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnCalcularDevolucionComisionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularDevolucionComisionadoActionPerformed
         double monto, gasT, devCom;
@@ -199,6 +217,55 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
         
         tfDevolucionComisionado.setText(String.valueOf(devCom));
     }//GEN-LAST:event_btnCalcularDevolucionComisionadoActionPerformed
+    int filas;
+    private void btnEditarDevolucionComiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarDevolucionComiActionPerformed
+        String []datos=new String[5];
+        datos[0]=tfCodigoTesorero.getText();
+        datos[1]=tfCodigoDestinatario.getText();
+        datos[2]=tfGastoTotal.getText();
+        datos[3]=tfMontoViatico.getText();
+        datos[4]=tfDevolucionComisionado.getText();
+        
+        for(int i=0; i<jDevolucionesComisionado.getColumnCount();i++){
+            modelo.setValueAt(datos[i], filas, i);
+        }
+        
+        
+    }//GEN-LAST:event_btnEditarDevolucionComiActionPerformed
+
+    private void btnEliminarDevolucionComiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDevolucionComiActionPerformed
+        int fila_seleccionada = jDevolucionesComisionado.getSelectedRow();
+        if(fila_seleccionada>=0){
+            modelo.removeRow(fila_seleccionada);
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fila por favor");
+        }
+        
+        tfCodigoTesorero.setText("");
+        tfCodigoDestinatario.setText("");
+        tfMontoViatico.setText("");
+        tfGastoTotal.setText("");
+        tfDevolucionComisionado.setText("");
+        
+    }//GEN-LAST:event_btnEliminarDevolucionComiActionPerformed
+
+    private void jDevolucionesComisionadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDevolucionesComisionadoMouseClicked
+        int fila_seleccionada = jDevolucionesComisionado.getSelectedRow();
+        tfCodigoTesorero.setText(jDevolucionesComisionado.getValueAt(fila_seleccionada, 0).toString());
+        tfCodigoDestinatario.setText(jDevolucionesComisionado.getValueAt(fila_seleccionada, 1).toString());
+        tfMontoViatico.setText(jDevolucionesComisionado.getValueAt(fila_seleccionada, 2).toString());
+        tfGastoTotal.setText(jDevolucionesComisionado.getValueAt(fila_seleccionada, 3).toString()); 
+        tfDevolucionComisionado.setText(jDevolucionesComisionado.getValueAt(fila_seleccionada, 4).toString()); 
+        filas=fila_seleccionada;
+    }//GEN-LAST:event_jDevolucionesComisionadoMouseClicked
+
+    private void btnNuevoDevolucionComiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoDevolucionComiActionPerformed
+        tfCodigoTesorero.setText("");
+        tfCodigoDestinatario.setText("");
+        tfMontoViatico.setText("");
+        tfGastoTotal.setText("");
+        tfDevolucionComisionado.setText("");
+    }//GEN-LAST:event_btnNuevoDevolucionComiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,7 +315,6 @@ public class FrmDevolverViaticoFaltante extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarDevolucionComi;
     private javax.swing.JButton btnEliminarDevolucionComi;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnNuevoDevolucionComi;
     private javax.swing.JTable jDevolucionesComisionado;
     private javax.swing.JLabel jLabel1;

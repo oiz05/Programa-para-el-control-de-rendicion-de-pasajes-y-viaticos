@@ -36,12 +36,11 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVerificacion = new javax.swing.JTable();
         btnListar = new javax.swing.JButton();
-        btnComentar = new javax.swing.JButton();
         btnAsignarCaso = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Solicitudes de Viaticos"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Solicitudes de Viaticos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
         jLabel2.setText("Búsqueda:");
 
@@ -66,11 +65,11 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo Solicitud", "Remitente", "Fecha de envio", "Comentarios", "Estado"
+                "Codigo Solicitud de Viatico", "Codigo de Remitente (comisionado)", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -86,9 +85,6 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
                 btnListarActionPerformed(evt);
             }
         });
-
-        btnComentar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/layer_edit.png"))); // NOI18N
-        btnComentar.setText("Comentar");
 
         btnAsignarCaso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/thumb_up_1.png"))); // NOI18N
         btnAsignarCaso.setText("Asignar Estado");
@@ -106,13 +102,11 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
                 .addComponent(btnBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnComentar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnAsignarCaso)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnLimpiar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -128,7 +122,6 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
                     .addComponent(btnBuscar)
                     .addComponent(btnLimpiar)
                     .addComponent(btnListar)
-                    .addComponent(btnComentar)
                     .addComponent(btnAsignarCaso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,7 +198,6 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarCaso;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnComentar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnListar;
     private javax.swing.JLabel jLabel2;

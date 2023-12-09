@@ -17,14 +17,16 @@ import javax.swing.RowFilter;
 
 
 public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
-    
+    DefaultTableModel modelo = new DefaultTableModel();
     TableRowSorter trsFiltro;
+    
     
         
     
     private DefaultTableModel dtm;
-    private Object[] o=new Object[7];
+    //private Object[] o=new Object[7];*/
     public ArregloSolicitudViatico arreglo1=new ArregloSolicitudViatico();
+    
     
     
    // private ArregloSolicitudViatico arraySV=new ArregloSolicitudViatico(1);
@@ -39,7 +41,21 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
      */
     public FrmRegistrarSolicitudViatico() {
         initComponents();
-        dtm= (DefaultTableModel) jTListado.getModel();
+        this.jTListado.setModel(modelo);
+        this.modelo.addColumn("Codigo de Solicitud");
+        this.modelo.addColumn("Codigo del Remitente");
+        this.modelo.addColumn("Monto");
+        this.modelo.addColumn("Tipo de Viaje");
+        this.modelo.addColumn("Fecha de Ida");
+        this.modelo.addColumn("Fecha de Retorno");
+        this.modelo.addColumn("Fecha de la Solicitud");
+        //dtm= (DefaultTableModel) jTListado.getModel();
+        
+        RegistroSV = new javax.swing.JPanel();
+        
+        // Añade el panel1 al JFrame
+        getContentPane().add(RegistroSV, java.awt.BorderLayout.CENTER);
+        RegistroSV.setVisible(false);  // Oculta el panel al inicio
     }
 
     /**
@@ -52,7 +68,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        ListadoSV = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
@@ -61,7 +77,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         tfBusqueda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTListado = new javax.swing.JTable();
-        TablaSV = new javax.swing.JPanel();
+        RegistroSV = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -75,10 +91,10 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         tfMonto = new javax.swing.JTextField();
         cbxTipoViaje = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
-        btnLimpiarSolicitud = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         tfFecha = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,9 +118,19 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/to_do_list_cheked_all.png"))); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tfBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,14 +138,11 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
             }
         });
 
-        jTListado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo de Solicitud", "Codigo del remitente ", "Fecha de la Solicitud", "Tipo de viaje", "Fecha de Ida", "Fecha de Retorno", "Monto "
+        jTListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTListadoMouseClicked(evt);
             }
-        ));
+        });
         jTListado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTListadoKeyPressed(evt);
@@ -127,11 +150,11 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTListado);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout ListadoSVLayout = new javax.swing.GroupLayout(ListadoSV);
+        ListadoSV.setLayout(ListadoSVLayout);
+        ListadoSVLayout.setHorizontalGroup(
+            ListadoSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ListadoSVLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel1)
                 .addGap(32, 32, 32)
@@ -145,20 +168,20 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEliminar)
                 .addGap(54, 54, 54))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(ListadoSVLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        ListadoSVLayout.setVerticalGroup(
+            ListadoSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ListadoSVLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ListadoSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ListadoSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(tfBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(ListadoSVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnBuscar)
                         .addComponent(btnNuevo)
                         .addComponent(btnEditar)
@@ -168,41 +191,41 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jTabbedPane4.addTab("Listado de Solicitudes", jPanel1);
+        jTabbedPane4.addTab("Listado de Solicitudes", ListadoSV);
 
-        TablaSV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        RegistroSV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Codigo de solicitud:");
-        TablaSV.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
+        RegistroSV.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
 
         jLabel3.setText("Codigo de Remitente:");
-        TablaSV.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
+        RegistroSV.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, -1, -1));
 
         jLabel4.setText("Fecha de Ida:");
-        TablaSV.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
+        RegistroSV.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, -1));
 
         jLabel5.setText("Fecha de Retorno:");
-        TablaSV.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, -1, -1));
+        RegistroSV.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, -1, -1));
 
         jLabel6.setText("Tipo de Viaje:");
-        TablaSV.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 80, -1));
+        RegistroSV.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 80, -1));
 
         jLabel7.setText("Monto de Viatico:");
-        TablaSV.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 100, -1));
+        RegistroSV.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 100, -1));
 
         tfCodigoSolicitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCodigoSolicitudActionPerformed(evt);
             }
         });
-        TablaSV.add(tfCodigoSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 120, -1));
-        TablaSV.add(tfCodigoRemitente, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 120, -1));
-        TablaSV.add(tfFechaIda, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 120, -1));
-        TablaSV.add(tfFechaRetorno, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 260, 110, -1));
-        TablaSV.add(tfMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 110, -1));
+        RegistroSV.add(tfCodigoSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 120, -1));
+        RegistroSV.add(tfCodigoRemitente, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 120, -1));
+        RegistroSV.add(tfFechaIda, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 120, -1));
+        RegistroSV.add(tfFechaRetorno, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, 120, -1));
+        RegistroSV.add(tfMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 290, 110, -1));
 
         cbxTipoViaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Local", "Nacional", "Internacional", " " }));
-        TablaSV.add(cbxTipoViaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 120, -1));
+        RegistroSV.add(cbxTipoViaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 120, -1));
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/save_as.png"))); // NOI18N
         btnGuardar.setText("Guardar");
@@ -211,32 +234,27 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        TablaSV.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 130, 40));
-
-        btnLimpiarSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
-        btnLimpiarSolicitud.setText("Limpiar");
-        btnLimpiarSolicitud.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarSolicitudActionPerformed(evt);
-            }
-        });
-        TablaSV.add(btnLimpiarSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 120, 40));
+        RegistroSV.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 130, 40));
 
         jLabel8.setFont(new java.awt.Font("Nirmala UI", 1, 36)); // NOI18N
         jLabel8.setText("SOLICITUD DE VIATICO");
-        TablaSV.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 410, -1));
+        RegistroSV.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 410, -1));
 
         jLabel9.setText("Fecha de envio de la solicitud:");
-        TablaSV.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        RegistroSV.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, -1, -1));
 
         tfFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfFechaActionPerformed(evt);
             }
         });
-        TablaSV.add(tfFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 120, -1));
+        RegistroSV.add(tfFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 340, 120, -1));
 
-        jTabbedPane4.addTab("Registro de Solicitud", TablaSV);
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel10.setText("//");
+        RegistroSV.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
+
+        jTabbedPane4.addTab("Registro de Solicitud", RegistroSV);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,9 +282,28 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
      
        CrearArregloSV();
+       
+       this.modelo.addRow(new Object[]{
+            this.tfCodigoSolicitud.getText(),
+            this.tfCodigoRemitente.getText(),
+            this.tfMonto.getText(),
+            this.cbxTipoViaje.getSelectedItem(),
+            this.tfFechaIda.getText(),
+            this.tfFechaRetorno.getText(),
+            this.tfFecha.getText(),
         
+        });
+       
        JOptionPane.showMessageDialog(this, "La solicitud de Viatico se ha registrado existosamente.");
         
+       //LIMPIAR
+        tfCodigoSolicitud.setText("");
+        tfCodigoRemitente.setText("");
+        tfFechaIda.setText("");
+        tfFechaRetorno.setText("");
+        tfMonto.setText("");
+        tfFecha.setText("");
+        cbxTipoViaje.setSelectedIndex(0);
       
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -298,18 +335,25 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
         
-
+        if (RegistroSV.isVisible()) {
+        RegistroSV.setVisible(false);
+        } else {
+        RegistroSV.setVisible(true);
+        
+        
+    }
+        
+        //LIMPIAR
+        tfCodigoSolicitud.setText("");
+        tfCodigoRemitente.setText("");
+        tfFechaIda.setText("");
+        tfFechaRetorno.setText("");
+        tfMonto.setText("");
+        tfFecha.setText("");
+        cbxTipoViaje.setSelectedIndex(0);
         
     }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnLimpiarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarSolicitudActionPerformed
-        // TODO add your handling code here:
-        //LIMPIAR
-        Limpiar();
-        
-    }//GEN-LAST:event_btnLimpiarSolicitudActionPerformed
 
     private void tfFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFechaActionPerformed
         // TODO add your handling code here:
@@ -318,6 +362,53 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private void tfBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfBusquedaActionPerformed
+   int filas;
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        String []datos=new String[7];
+        datos[0]=tfCodigoSolicitud.getText();
+        datos[1]=tfCodigoRemitente.getText();
+        datos[2]=tfMonto.getText();
+        datos[3]=cbxTipoViaje.getSelectedItem().toString();
+        datos[4]=tfFechaIda.getText();
+        datos[5]=tfFechaRetorno.getText();
+        datos[6]=tfFecha.getText();
+
+        
+        for(int i=0; i<jTListado.getColumnCount();i++){
+            modelo.setValueAt(datos[i], filas, i);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int fila_seleccionada = jTListado.getSelectedRow();
+        if(fila_seleccionada>=0){
+            modelo.removeRow(fila_seleccionada);
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fila por favor");
+        }
+        
+        tfCodigoSolicitud.setText("");
+        tfCodigoRemitente.setText("");
+        tfFechaIda.setText("");
+        tfFechaRetorno.setText("");
+        tfMonto.setText("");
+        tfFecha.setText("");
+        cbxTipoViaje.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jTListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTListadoMouseClicked
+        int fila_seleccionada = jTListado.getSelectedRow();
+        tfCodigoSolicitud.setText(jTListado.getValueAt(fila_seleccionada, 0).toString());
+        tfCodigoRemitente.setText(jTListado.getValueAt(fila_seleccionada, 1).toString());
+        tfMonto.setText(jTListado.getValueAt(fila_seleccionada, 2).toString());
+        cbxTipoViaje.setSelectedItem(jTListado.getValueAt(fila_seleccionada, 3).toString());
+        tfFechaIda.setText(jTListado.getValueAt(fila_seleccionada, 4).toString());
+        tfFechaRetorno.setText(jTListado.getValueAt(fila_seleccionada, 5).toString());
+        tfFecha.setText(jTListado.getValueAt(fila_seleccionada, 6).toString());
+        
+        filas=fila_seleccionada;
+    }//GEN-LAST:event_jTListadoMouseClicked
     private void Limpiar() {
         tfCodigoSolicitud.setText("");
         tfCodigoRemitente.setText("");
@@ -363,15 +454,16 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel TablaSV;
+    private javax.swing.JPanel ListadoSV;
+    private javax.swing.JPanel RegistroSV;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnLimpiarSolicitud;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox<String> cbxTipoViaje;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -380,7 +472,6 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTListado;
     private javax.swing.JTabbedPane jTabbedPane4;
@@ -404,7 +495,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         
        // System.out.println(arreglo1.getSolicitudViaticoByIndex(0).getFechaIda());
         
-        o[0]=tfCodigoSolicitud.getText().trim();
+        /*o[0]=tfCodigoSolicitud.getText().trim();
         //o[0]=arreglo1.getSolicitudViaticoByIndex(0).getCodSolicitud();
         o[1]=tfCodigoRemitente.getText().trim();
         //o[1]=arreglo1.getSolicitudViaticoByIndex(0).getCodRemitente();
@@ -418,7 +509,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         //o[5]=arreglo1.getSolicitudViaticoByIndex(0).getFechaRetorno();
         o[6]=tfMonto.getText();
         //o[6]=arreglo1.getSolicitudViaticoByIndex(0).getMonto();
-        dtm.addRow(o);
+        dtm.addRow(o);*/
     }
 
     
