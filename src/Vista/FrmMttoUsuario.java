@@ -120,7 +120,7 @@ public class FrmMttoUsuario extends javax.swing.JFrame {
             fila.add(aux.getTrabajador().getNombre());
             fila.add(aux.getTrabajador().getApellido());
             fila.add(aux.getLogin());
-            fila.add(aux.getRol_trabajador());
+            fila.add(aux.getNombre_cargo());
             dtm.addRow(fila);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed

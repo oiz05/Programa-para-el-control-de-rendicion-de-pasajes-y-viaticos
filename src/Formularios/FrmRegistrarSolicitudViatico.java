@@ -294,6 +294,9 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         
         });
        
+       //GUARDADO EN LA BASE DE DATOS:
+       
+       
        JOptionPane.showMessageDialog(this, "La solicitud de Viatico se ha registrado existosamente.");
         
        //LIMPIAR
@@ -304,6 +307,8 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         tfMonto.setText("");
         tfFecha.setText("");
         cbxTipoViaje.setSelectedIndex(0);
+        
+      //REGISTRAR SOLICITUD DE VIATICO EN LA BASE DE DATOS
       
     }//GEN-LAST:event_btnGuardarActionPerformed
 

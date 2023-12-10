@@ -6,6 +6,7 @@ package Formularios;
 
 import Clases.Cargo;
 import Clases.Trabajador;
+import Controlador.cTrabajador;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 public class FrmTrabajador extends javax.swing.JFrame {
@@ -119,7 +120,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -149,7 +150,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jtbListaTrabajadores.addTab("Listado de trabajadores", jPanel1);
@@ -159,7 +160,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
         jLabel2.setText("Nombre:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, -1, 20));
 
-        jLabel3.setText("Apellidos:");
+        jLabel3.setText("Apellido:");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
 
         jLabel4.setText("Codigo:");
@@ -276,7 +277,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        /*String codT=tfCodigoTrabajador.getText();
+        String codT=tfCodigoTrabajador.getText();
         String tipoDocumento=cbxTipodeDocumento.getSelectedItem().toString();
         String sexo=cbxSexo.getSelectedItem().toString();
         String nombre=tfNombre.getText();
@@ -284,10 +285,10 @@ public class FrmTrabajador extends javax.swing.JFrame {
         String direccion=tfDireccion.getText();
         String nombreCargo=cbxNombreCargo.getSelectedItem().toString();
         String tipoCargo=cbxTipoCargo.getSelectedItem().toString();
-        Cargo nomCargo=new Cargo();
-        nomCargo.setNombreCargo(nombreCargo);
-        nomCargo.setTipoCargo(tipoCargo);
-        
+        Cargo cargo1=new Cargo();
+        cargo1.setNombreCargo(nombreCargo);
+        cargo1.setTipoCargo(tipoCargo);
+        /*
         o[0]=codT;
         o[1]=nombre;
         o[2]=apellidos;
@@ -309,6 +310,13 @@ public class FrmTrabajador extends javax.swing.JFrame {
             this.cbxTipoCargo.getSelectedItem()
         
         });
+        //GUARDADO EN LA BASE DE DATOS:
+        Trabajador t1=new Trabajador(codT,nombre,apellidos,tipoDocumento,sexo,direccion,cargo1);
+        cTrabajador tbj=new cTrabajador();
+        tbj.addTrabajador(t1);
+        
+        
+        //-------------------------------------------
         
         //GUARDADO
         JOptionPane.showMessageDialog(this, "El trabajador se ha registrado correctamente.");

@@ -35,24 +35,24 @@ public class FrmMenu extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //Habilitar o Deshabilitar opciones
-        if(user.getRol_trabajador().equals("COMISIONADO"))
+        if(user.getNombre_cargo().equals("COMISIONADO"))
         {
             this.jMenu4.setEnabled(false);
             this.jMenu3.setEnabled(false);
         }
-        if(user.getRol_trabajador().equals("CONTADOR"))
+        if(user.getNombre_cargo().equals("CONTADOR"))
         {
             this.jMenu4.setEnabled(false);
             this.jMenu1.setEnabled(false);
         }
-        if(user.getRol_trabajador().equals("TESORERO"))
+        if(user.getNombre_cargo().equals("TESORERO"))
         {
             this.jMenu4.setEnabled(false);
             this.jMenu1.setEnabled(false);
         }
-        if(user.getRol_trabajador().equals("ENCARGADO ADMINISTRATIVO"))
+        if(user.getNombre_cargo().equals("ENCARGADO ADMINISTRATIVO"))
         {this.jMenu4.setEnabled(false);}
-        if(user.getRol_trabajador().equals("SYSTEM"))
+        if(user.getNombre_cargo().equals("SYSTEM"))
         {
             this.jMenu1.setEnabled(false);
             this.jMenu2.setEnabled(false);

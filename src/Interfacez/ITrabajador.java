@@ -1,6 +1,7 @@
 
 package Interfacez;
 
+import Clases.SolicitudViatico;
 import Clases.Trabajador;
 import java.util.List;
 public interface ITrabajador {
@@ -13,9 +14,10 @@ public interface ITrabajador {
     
     public Trabajador[] getAllTrabajador();
     public Trabajador getTrabajadorByIndex(int index);
-    public void addTrabajador(Trabajador obj);
+    public boolean addTrabajador(Trabajador obj);
     public void updateTrabajador(Trabajador obj);
     public void deleteTrabajador(String codigo);
     
-    
+    //METODOS COMISIONADO:
+    public void addSolicitudViatico(SolicitudViatico obj);
 }

@@ -1,6 +1,7 @@
 
 package EstructuraDeDatos;
 
+import Clases.SolicitudViatico;
 import Clases.Trabajador;
 import Interfacez.ITrabajador;
 import java.util.List;
@@ -25,9 +26,10 @@ public class ArregloTrabajador implements ITrabajador {
     }
 
     @Override
-    public void addTrabajador(Trabajador obj) {
+    public boolean addTrabajador(Trabajador obj) {
         listaT[index]= obj;
         index++;
+        return false;
     }
 
     @Override
@@ -62,6 +64,11 @@ public class ArregloTrabajador implements ITrabajador {
 
     @Override
     public Trabajador getTrabajador(String login) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void addSolicitudViatico(SolicitudViatico obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

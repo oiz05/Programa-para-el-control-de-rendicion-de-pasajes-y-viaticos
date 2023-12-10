@@ -3,16 +3,16 @@ package Clases;
 public class Usuario {
    private String login;
    private String clave;
-   private String rol_trabajador;
+   private String nombre_cargo;
    private Trabajador trabajador;
 
     public Usuario() {
     }
 
-    public Usuario(String login, String clave, String rol, Trabajador trabajador) {
+    public Usuario(String login, String clave, String nombre_cargo, Trabajador trabajador) {
         this.login = login;
         this.clave = clave;
-        this.rol_trabajador = rol_trabajador;
+        this.nombre_cargo = nombre_cargo;
         this.trabajador = trabajador;
     }
 
@@ -32,12 +32,12 @@ public class Usuario {
         this.clave = clave;
     }
 
-    public String getRol_trabajador() {
-        return rol_trabajador;
+    public String getNombre_cargo() {
+        return nombre_cargo;
     }
 
-    public void setRol_trabajador(String rol) {
-        this.rol_trabajador = rol;
+    public void setNombre_cargo(String rol) {
+        this.nombre_cargo = rol;
     }
 
     public Trabajador getTrabajador() {

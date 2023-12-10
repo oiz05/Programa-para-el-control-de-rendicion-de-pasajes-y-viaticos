@@ -15,9 +15,9 @@ public class UsuarioDao implements IUsuario{
 
     private Connection obtenerConexion() throws SQLException {
         // Establecer la conexión con la base de datos SQL Server
-        String url = "jdbc:sqlserver://95.217.180.168:1433;databaseName=ControlPV;encrypt=false;trustServerCertificate=true;";
+        String url = "jdbc:sqlserver://192.168.0.72:1433;databaseName=CPasajesV;encrypt=false;trustServerCertificate=true;";
         String usuario = "sa";
-        String contraseña = "01K#cjWq3c";
+        String contraseña = "oscar123";
         return DriverManager.getConnection(url, usuario, contraseña);
     
         }
@@ -27,12 +27,12 @@ public class UsuarioDao implements IUsuario{
         //Conexion BD
         try{
             String query = " INSERT INTO Usuario ";
-                   query += "(login, clave, rol_trabajador,codigo_trabajador) ";
+                   query += "(login, clave, nombre_cargo, codigo_trabajador) ";
                    query += " VALUES(?,?,?,?)";
             PreparedStatement  stmt = DataSource().prepareStatement(query);
             stmt.setString(1, obj.getLogin());
             stmt.setString(2, obj.getClave());
-            stmt.setString(3, obj.getRol_trabajador());
+            stmt.setString(3, obj.getNombre_cargo());
             stmt.setString(4, obj.getTrabajador().getCodigo());
             flag = stmt.execute();
         }
@@ -57,7 +57,7 @@ public class UsuarioDao implements IUsuario{
         //Conexion BD
         try{
             
-            String query = "SELECT tt.nombre_trabajador, tt.apellido_trabajador, uu.login, uu.rol_trabajador, uu.codigo_trabajador ";
+            String query = "SELECT tt.nombre_trabajador, tt.apellido_trabajador, uu.login, uu.nombre_cargo, uu.codigo_trabajador ";
                    query += "FROM Usuario uu ";
                    query += "inner join Trabajador tt on uu.codigo_trabajador = tt.codigo_trabajador ";
             Statement stmt = DataSource().createStatement();       
@@ -73,7 +73,7 @@ public class UsuarioDao implements IUsuario{
 
                 Usuario aux = new Usuario();
                 aux.setLogin(rs.getString(3));
-                aux.setRol_trabajador(rs.getString(4));
+                aux.setNombre_cargo(rs.getString(4));
                 aux.setTrabajador(trabaj);   
                 
                 data.add(aux);            
@@ -93,7 +93,7 @@ public class UsuarioDao implements IUsuario{
         Usuario data = new Usuario();
         //Conexion BD
         try{
-            String query = "SELECT uu.rol_trabajador, uu.login ";
+            String query = "SELECT uu.nombre_cargo, uu.login ";
                    query += "FROM Usuario uu ";
                    query += "WHERE uu.login = ? and uu.clave = ? ";
             PreparedStatement  stmt = DataSource().prepareStatement(query);
@@ -104,7 +104,7 @@ public class UsuarioDao implements IUsuario{
 
             //Recuperacion de registros
              if (rs.next() ){
-                data.setRol_trabajador(rs.getString(1)); 
+                data.setNombre_cargo(rs.getString(1)); 
                 data.setLogin(rs.getString(2));
                 
              }   

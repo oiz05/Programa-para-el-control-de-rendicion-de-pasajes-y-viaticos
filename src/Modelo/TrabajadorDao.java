@@ -1,29 +1,44 @@
 package Modelo;
 
-import Clases.Cargo;
+
+import Clases.SolicitudViatico;
 import Clases.Trabajador;
 import Interfacez.ITrabajador;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import static util.DataSource.DataSource;
 
 public class TrabajadorDao implements ITrabajador{
+    
+    private Connection obtenerConexion() throws SQLException, ClassNotFoundException {
+        // Establecer la conexión con la base de datos SQL Server
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        String url = "jdbc:sqlserver://OSCARZARI\\SQLEXPRESS:1433;databaseName=CPasajesV;encrypt=false;trustServerCertificate=true;";
+        String usuario = "sa";
+        String contraseña = "oscar123";
+        return DriverManager.getConnection(url, usuario, contraseña);
+    
+        }
 
     @Override
     public boolean add(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return false; //FALTA MODIFICAR
     }
 
     @Override
     public boolean update(Trabajador obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return false; //FALTA MODIFICAR
     }
 
     @Override
     public boolean delete(String login) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return false; //FALTA MODIFICAR
     }
 
     @Override
@@ -52,32 +67,57 @@ public class TrabajadorDao implements ITrabajador{
 
     @Override
     public Trabajador getTrabajador(String login) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null; //FALTA MODIFICAR
     }
 
     @Override
     public Trabajador[] getAllTrabajador() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         return null; //FALTA MODIFICAR
     }
 
     @Override
     public Trabajador getTrabajadorByIndex(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null; //FALTA MODIFICAR
     }
 
     @Override
-    public void addTrabajador(Trabajador obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean addTrabajador(Trabajador obj) {
+         //Conexion BD
+         boolean flag=false;
+         String query="INSERT INTO Trabajador (nombre_trabajador, apellido_trabajador, codigo_trabajador, tipo_documento, sexo_trabajador, direccion_trabajador, tipo_cargo, nombre_cargo) VALUES(?,?,?,?,?,?,?,?) ";
+        try(Connection con = obtenerConexion(); PreparedStatement stmt = con.prepareStatement(query)){
+            
+            stmt.setString(1, obj.getNombre());
+            stmt.setString(2, obj.getApellido());
+            stmt.setString(3, obj.getCodigo());
+            stmt.setString(4, obj.getTipoDocumento());
+            stmt.setString(5, obj.getSexo());
+            stmt.setString(6, obj.getDireccion());
+            stmt.setString(7, obj.getCargo().getTipoCargo());
+            stmt.setString(8, obj.getCargo().getNombreCargo());
+            flag = stmt.execute();
+        }
+        catch(Exception ex){System.out.println(ex.getMessage());}
+        return flag;
     }
 
     @Override
     public void updateTrabajador(Trabajador obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //FALTA MODIFICAR
     }
 
     @Override
     public void deleteTrabajador(String codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //FALTA MODIFICAR
+    }
+
+    //METODOS COMISIONADO
+    @Override
+    public void addSolicitudViatico(SolicitudViatico obj) {
+        //FALTA MODIFICAR
+        boolean flag=false;
+        String query="INSERT INTO SolicitudV (codigo_solicitudV, codigo_trabajador, ) VALUES(?,?,?,?,?,?,?,?) ";
+        
     }
 
     

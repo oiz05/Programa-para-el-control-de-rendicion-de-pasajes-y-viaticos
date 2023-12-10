@@ -12,11 +12,11 @@ public class DataSource {
         SQLServerDataSource ds = new SQLServerDataSource();
         
         try{
-            ds.setServerName("95.217.180.168");
-            ds.setDatabaseName("ControlPV");
+            ds.setServerName("192.168.0.72");
+            ds.setDatabaseName("CPasajesV");
             ds.setPortNumber(1433);
             ds.setUser("sa");
-            ds.setPassword("01K#cjWq3c");
+            ds.setPassword("oscar123");
             ds.setEncrypt(false);            
             conn = ds.getConnection();
         }

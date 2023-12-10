@@ -142,7 +142,7 @@ public class FrmRegistroUsuario extends javax.swing.JFrame {
         Usuario objN = new Usuario();
         objN.setLogin(tfLogin.getText());
         objN.setClave(tfClave.getText());
-        objN.setRol_trabajador((String)cbxRol.getSelectedItem());
+        objN.setNombre_cargo((String)cbxRol.getSelectedItem());
         String cadd = (String)cbxEmpleado.getSelectedItem();
         String datos[] = cadd.split("\\|");
         Trabajador trabaj = new Trabajador(datos[0],datos[1],datos[2]);
