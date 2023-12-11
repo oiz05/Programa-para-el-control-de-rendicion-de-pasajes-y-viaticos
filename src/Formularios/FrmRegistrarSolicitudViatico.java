@@ -6,8 +6,10 @@
 
 package Formularios;
 
+import Clases.Comisionado;
 import Clases.SolicitudViatico;
 import Clases.Viatico;
+import Controlador.cTrabajador;
 import EstructuraDeDatos.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -85,7 +87,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tfCodigoSolicitud = new javax.swing.JTextField();
-        tfCodigoRemitente = new javax.swing.JTextField();
+        tfCodigoComisionado = new javax.swing.JTextField();
         tfFechaIda = new javax.swing.JTextField();
         tfFechaRetorno = new javax.swing.JTextField();
         tfMonto = new javax.swing.JTextField();
@@ -219,7 +221,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
             }
         });
         RegistroSV.add(tfCodigoSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 120, -1));
-        RegistroSV.add(tfCodigoRemitente, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 120, -1));
+        RegistroSV.add(tfCodigoComisionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 120, -1));
         RegistroSV.add(tfFechaIda, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 120, -1));
         RegistroSV.add(tfFechaRetorno, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, 120, -1));
         RegistroSV.add(tfMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 290, 110, -1));
@@ -285,7 +287,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
        
        this.modelo.addRow(new Object[]{
             this.tfCodigoSolicitud.getText(),
-            this.tfCodigoRemitente.getText(),
+            this.tfCodigoComisionado.getText(),
             this.tfMonto.getText(),
             this.cbxTipoViaje.getSelectedItem(),
             this.tfFechaIda.getText(),
@@ -295,20 +297,27 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         });
        
        //GUARDADO EN LA BASE DE DATOS:
+        Comisionado cmdo=new Comisionado();
+        cmdo.setCodigo(tfCodigoComisionado.getText());
+        Viatico vtc=new Viatico();
+        vtc.setMontoViatico(Double.parseDouble(tfMonto.getText()));
+        SolicitudViatico sv1=new SolicitudViatico(tfCodigoSolicitud.getText(), cmdo, tfFecha.getText(), tfFechaIda.getText(), tfFechaRetorno.getText(), cbxTipoViaje.getSelectedItem().toString(), vtc );
+        cTrabajador ctb1=new cTrabajador();
+        ctb1.addSolicitudViatico(sv1);
+       
        
        
        JOptionPane.showMessageDialog(this, "La solicitud de Viatico se ha registrado existosamente.");
         
        //LIMPIAR
         tfCodigoSolicitud.setText("");
-        tfCodigoRemitente.setText("");
+        tfCodigoComisionado.setText("");
         tfFechaIda.setText("");
         tfFechaRetorno.setText("");
         tfMonto.setText("");
         tfFecha.setText("");
         cbxTipoViaje.setSelectedIndex(0);
         
-      //REGISTRAR SOLICITUD DE VIATICO EN LA BASE DE DATOS
       
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -351,7 +360,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         
         //LIMPIAR
         tfCodigoSolicitud.setText("");
-        tfCodigoRemitente.setText("");
+        tfCodigoComisionado.setText("");
         tfFechaIda.setText("");
         tfFechaRetorno.setText("");
         tfMonto.setText("");
@@ -371,7 +380,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         String []datos=new String[7];
         datos[0]=tfCodigoSolicitud.getText();
-        datos[1]=tfCodigoRemitente.getText();
+        datos[1]=tfCodigoComisionado.getText();
         datos[2]=tfMonto.getText();
         datos[3]=cbxTipoViaje.getSelectedItem().toString();
         datos[4]=tfFechaIda.getText();
@@ -393,7 +402,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         }
         
         tfCodigoSolicitud.setText("");
-        tfCodigoRemitente.setText("");
+        tfCodigoComisionado.setText("");
         tfFechaIda.setText("");
         tfFechaRetorno.setText("");
         tfMonto.setText("");
@@ -405,7 +414,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private void jTListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTListadoMouseClicked
         int fila_seleccionada = jTListado.getSelectedRow();
         tfCodigoSolicitud.setText(jTListado.getValueAt(fila_seleccionada, 0).toString());
-        tfCodigoRemitente.setText(jTListado.getValueAt(fila_seleccionada, 1).toString());
+        tfCodigoComisionado.setText(jTListado.getValueAt(fila_seleccionada, 1).toString());
         tfMonto.setText(jTListado.getValueAt(fila_seleccionada, 2).toString());
         cbxTipoViaje.setSelectedItem(jTListado.getValueAt(fila_seleccionada, 3).toString());
         tfFechaIda.setText(jTListado.getValueAt(fila_seleccionada, 4).toString());
@@ -416,7 +425,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     }//GEN-LAST:event_jTListadoMouseClicked
     private void Limpiar() {
         tfCodigoSolicitud.setText("");
-        tfCodigoRemitente.setText("");
+        tfCodigoComisionado.setText("");
         tfFechaIda.setText("");
         tfFechaRetorno.setText("");
         tfMonto.setText("");
@@ -481,7 +490,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private javax.swing.JTable jTListado;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTextField tfBusqueda;
-    private javax.swing.JTextField tfCodigoRemitente;
+    private javax.swing.JTextField tfCodigoComisionado;
     private javax.swing.JTextField tfCodigoSolicitud;
     private javax.swing.JTextField tfFecha;
     private javax.swing.JTextField tfFechaIda;
@@ -493,10 +502,9 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         
        
         
-        
-        arreglo1.addSolicitudViatico(new SolicitudViatico(tfCodigoSolicitud.getText(), 
-        tfCodigoRemitente.getText(), tfFecha.getText(), tfFechaIda.getText(),
-        tfFechaRetorno.getText(),cbxTipoViaje.getSelectedItem().toString(),new Viatico(Double.parseDouble(tfMonto.getText()))));
+        Comisionado cmdo=new Comisionado();
+        cmdo.setCodigo(tfCodigoComisionado.getText());
+        arreglo1.addSolicitudViatico(new SolicitudViatico(tfCodigoSolicitud.getText(),cmdo, tfFecha.getText(), tfFechaIda.getText(), tfFechaRetorno.getText(),cbxTipoViaje.getSelectedItem().toString(), new Viatico(Double.parseDouble(tfMonto.getText()))));
         
        // System.out.println(arreglo1.getSolicitudViaticoByIndex(0).getFechaIda());
         

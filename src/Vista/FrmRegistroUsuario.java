@@ -23,7 +23,7 @@ public class FrmRegistroUsuario extends javax.swing.JFrame {
     public FrmRegistroUsuario() {
         initComponents();
         cTrabajador objCE = new cTrabajador(); 
-        lstTrabajadores = (ArrayList<Trabajador>) objCE.getEmpleados();
+        lstTrabajadores = (ArrayList<Trabajador>) objCE.getTrabajadores();
         for(Trabajador aux : lstTrabajadores)
         {
             String cad = aux.getCodigo()+" | "+ aux.getApellido()+" | "+aux.getNombre();

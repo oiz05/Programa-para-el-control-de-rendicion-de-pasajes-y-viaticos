@@ -68,7 +68,7 @@ public class FrmRealizarRendicionCuentas2 extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTRealizarRC);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 760, 300));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 760, 300));
 
         btnAgregarDoc.setText("Agregar Documento");
         btnAgregarDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +76,7 @@ public class FrmRealizarRendicionCuentas2 extends javax.swing.JFrame {
                 btnAgregarDocActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregarDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 180, 30));
+        jPanel1.add(btnAgregarDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 160, 40));
 
         btnEliminarDoc.setText("Eliminar");
         btnEliminarDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +100,7 @@ public class FrmRealizarRendicionCuentas2 extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Eliminar Documento");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, -1, -1));
 
         jLabel7.setText("Número de fila:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, -1, -1));
@@ -123,14 +123,16 @@ public class FrmRealizarRendicionCuentas2 extends javax.swing.JFrame {
     private void btnAgregarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDocActionPerformed
         // TODO add your handling code here:
         
-        dag1.addDocumentoAcreditadorGasto(new DocumentoAcreditadorGasto(null,
-                Double.parseDouble(tfMontoG.getText()),tfFechaG.getText(),tfCodigoDAG.getText()));
+        /*dag1.addDocumentoAcreditadorGasto(new DocumentoAcreditadorGasto(null,
+                Double.parseDouble(tfMontoG.getText()),tfFechaG.getText(),tfCodigoDAG.getText()));*/
         o[0]=tfSolicitudV.getText();
         o[1]=tfCodigoDAG.getText();
         o[2]=tfTipoDoc.getText();
         o[3]=tfFechaG.getText();
         o[4]=tfMontoG.getText();
         dtm1.addRow(o);
+        
+        
         
         
     }//GEN-LAST:event_btnAgregarDocActionPerformed
@@ -167,6 +169,10 @@ public class FrmRealizarRendicionCuentas2 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmRealizarRendicionCuentas2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

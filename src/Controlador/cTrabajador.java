@@ -1,13 +1,14 @@
 
 package Controlador;
 
+import Clases.DocumentoAcreditadorGasto;
 import Clases.SolicitudViatico;
 import Clases.Trabajador;
 import java.util.List;
 import Modelo.TrabajadorDao;
 
 public class cTrabajador {
-   public List<Trabajador> getEmpleados() {
+   public List<Trabajador> getTrabajadores() {
        TrabajadorDao objD = new TrabajadorDao();
        return objD.getTrabajadores();
    } 
@@ -17,10 +18,19 @@ public class cTrabajador {
         TrabajadorDao objD=new TrabajadorDao();
         return objD.addTrabajador(obj);
     }
-//METODOS COMISIONADO:
-   public void addSolicitudViatico(SolicitudViatico obj){
-       TrabajadorDao objD = new TrabajadorDao();
-       objD.addSolicitudViatico(obj);
-       
+    public Trabajador getTrabajador(String filtro){
+        TrabajadorDao objD=new TrabajadorDao();
+        return objD.getTrabajador(filtro);
+    }
+//METODOS COMISIONADO-----------------------------------------------------------------------
+   public boolean addSolicitudViatico(SolicitudViatico obj){
+       TrabajadorDao objD=new TrabajadorDao();
+      return objD.addSolicitudViatico(obj);
    }
+   
+   public boolean addDocumentoAcreditadorGasto(DocumentoAcreditadorGasto obj){
+       TrabajadorDao objD=new TrabajadorDao();
+       return objD.addDocumentoAcreditadorGasto(obj);
+   }
+//------------------------------------------------------------------------------------------
 }

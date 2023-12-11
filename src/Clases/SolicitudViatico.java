@@ -4,7 +4,7 @@ package Clases;
 
 public class SolicitudViatico {
     private String codSolicitud;
-    private String codRemitente;
+    private Comisionado comisionado;
     private String fechaSolicitud;
     private String fechaIda;
     private String fechaRetorno;
@@ -14,9 +14,9 @@ public class SolicitudViatico {
     public SolicitudViatico() {
     }
 
-    public SolicitudViatico(String codSolicitud, String codRemitente, String fechaSolicitud, String fechaIda, String fechaRetorno, String tipoViaje, Viatico monto) {
+    public SolicitudViatico(String codSolicitud, Comisionado comisionado, String fechaSolicitud, String fechaIda, String fechaRetorno, String tipoViaje, Viatico monto) {
         this.codSolicitud = codSolicitud;
-        this.codRemitente = codRemitente;
+        this.comisionado = comisionado;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaIda = fechaIda;
         this.fechaRetorno = fechaRetorno;
@@ -32,12 +32,12 @@ public class SolicitudViatico {
         this.codSolicitud = codSolicitud;
     }
 
-    public String getCodRemitente() {
-        return codRemitente;
+    public Comisionado getComisionado() {
+        return comisionado;
     }
 
-    public void setCodRemitente(String codRemitente) {
-        this.codRemitente = codRemitente;
+    public void setComisionado(Comisionado comisionado) {
+        this.comisionado = comisionado;
     }
 
     public String getFechaSolicitud() {

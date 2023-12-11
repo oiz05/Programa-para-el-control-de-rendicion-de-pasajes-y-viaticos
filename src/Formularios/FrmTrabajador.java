@@ -6,8 +6,12 @@ package Formularios;
 
 import Clases.Cargo;
 import Clases.Trabajador;
+import Clases.Usuario;
 import Controlador.cTrabajador;
+import Controlador.cUsuario;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 public class FrmTrabajador extends javax.swing.JFrame {
     /*private DefaultTableModel dtm;
@@ -48,7 +52,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTtrabajadores = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        txtBusqueda = new javax.swing.JTextField();
+        tfBusqueda = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -87,6 +91,11 @@ public class FrmTrabajador extends javax.swing.JFrame {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/find.png"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pencil_add.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
@@ -126,7 +135,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -142,7 +151,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
                     .addComponent(btnNuevo)
                     .addComponent(btnEditar)
@@ -310,17 +319,18 @@ public class FrmTrabajador extends javax.swing.JFrame {
             this.cbxTipoCargo.getSelectedItem()
         
         });
-        //GUARDADO EN LA BASE DE DATOS:
+        //BASE DE DATOS-----------------------------------------------------------
+        //GUARDAR EN LA BASE DE DATOS:
         Trabajador t1=new Trabajador(codT,nombre,apellidos,tipoDocumento,sexo,direccion,cargo1);
         cTrabajador tbj=new cTrabajador();
         tbj.addTrabajador(t1);
         
         
-        //-------------------------------------------
+        //-------------------------------------------------------------------------
         
-        //GUARDADO
-        JOptionPane.showMessageDialog(this, "El trabajador se ha registrado correctamente.");
         //VALIDAR INGRESO DE DATOS
+        JOptionPane.showMessageDialog(this, "El trabajador se ha registrado correctamente.");
+        
 
         //LIMPIAR
         tfCodigoTrabajador.setText("");
@@ -388,6 +398,71 @@ public class FrmTrabajador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCodigoTrabajadorActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        //BOTON LISTAR----------------------------------------------------------
+        if(tfBusqueda.getText().isEmpty()){
+        cTrabajador tbj=new cTrabajador();
+
+        //Mostrar los datos
+        DefaultTableModel dtm = (DefaultTableModel) jTtrabajadores.getModel();
+            while (dtm.getRowCount() > 0) {
+                dtm.removeRow(0);
+            }
+            for (Trabajador aux : tbj.getTrabajadores()) {
+                Vector fila = new Vector();
+                fila.add(aux.getNombre());
+                fila.add(aux.getApellido());
+                fila.add(aux.getCodigo());
+                fila.add(aux.getTipoDocumento());
+                fila.add(aux.getSexo());
+                fila.add(aux.getDireccion());
+                fila.add(aux.getCargo().getTipoCargo());
+                fila.add(aux.getCargo().getNombreCargo());
+                dtm.addRow(fila);
+            }
+        }
+        //------------------------------------------------------------------------
+        
+        
+        //BASE DE DATOS---------------------------------------------
+        //BUSCAR POR CODIGO_TRABAJADOR EN LA BASE DE DATOS:
+        
+        
+        
+        //cTrabajador tbj=new cTrabajador();
+        //tbj.getTrabajador(tfBusqueda.getText());
+        
+          
+        if(!tfBusqueda.getText().isEmpty()){
+            cTrabajador ctr=new cTrabajador();
+            DefaultTableModel dtm = (DefaultTableModel) jTtrabajadores.getModel();
+            
+            Vector fila = new Vector();
+            for (int i = 0; i < ctr.getTrabajadores().size(); i++) {
+                
+                if (tfBusqueda.getText().equalsIgnoreCase(ctr.getTrabajadores().get(i).getCodigo())) {
+                    Trabajador aux=new Trabajador();
+                    aux.setCodigo(ctr.getTrabajador(tfBusqueda.getText()).getCodigo());
+                    System.out.println(aux.getCodigo());
+                    fila.add(aux.getCodigo());
+                    fila.add(aux.getNombre());
+                    fila.add(aux.getApellido());
+                    fila.add(aux.getTipoDocumento());
+                    fila.add(aux.getSexo());
+                    fila.add(aux.getDireccion());
+                    fila.add(aux.getCargo().getTipoCargo());
+                    fila.add(aux.getCargo().getNombreCargo());
+                    dtm.addRow(fila);
+                }
+            }
+        }
+       
+    
+        //----------------------------------------------------------
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -451,9 +526,9 @@ public class FrmTrabajador extends javax.swing.JFrame {
     private javax.swing.JTable jTtrabajadores;
     private javax.swing.JTabbedPane jtbListaTrabajadores;
     private javax.swing.JTextField tfApellidos;
+    private javax.swing.JTextField tfBusqueda;
     private javax.swing.JTextField tfCodigoTrabajador;
     private javax.swing.JTextField tfDireccion;
     private javax.swing.JTextField tfNombre;
-    private javax.swing.JTextField txtBusqueda;
     // End of variables declaration//GEN-END:variables
 }

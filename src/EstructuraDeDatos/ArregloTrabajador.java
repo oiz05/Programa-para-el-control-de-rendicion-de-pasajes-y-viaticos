@@ -1,6 +1,7 @@
 
 package EstructuraDeDatos;
 
+import Clases.DocumentoAcreditadorGasto;
 import Clases.SolicitudViatico;
 import Clases.Trabajador;
 import Interfacez.ITrabajador;
@@ -68,7 +69,12 @@ public class ArregloTrabajador implements ITrabajador {
     }
 
     @Override
-    public void addSolicitudViatico(SolicitudViatico obj) {
+    public boolean addSolicitudViatico(SolicitudViatico obj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean addDocumentoAcreditadorGasto(DocumentoAcreditadorGasto obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

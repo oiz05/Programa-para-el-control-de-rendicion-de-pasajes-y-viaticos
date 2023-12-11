@@ -1,6 +1,9 @@
 package Modelo;
 
 
+import Clases.Cargo;
+import Clases.DeclaracionJurada;
+import Clases.DocumentoAcreditadorGasto;
 import Clases.SolicitudViatico;
 import Clases.Trabajador;
 import Interfacez.ITrabajador;
@@ -44,19 +47,33 @@ public class TrabajadorDao implements ITrabajador{
     @Override
     public List<Trabajador> getTrabajadores() {
         ArrayList<Trabajador> data = new ArrayList<>();
+        String query="select ";
+                query+="upper(nombre_trabajador), ";
+                query+="upper(apellido_trabajador), ";
+                query+="upper(codigo_trabajador), ";
+                query+="upper(tipo_documento), ";
+                query+="upper(sexo_trabajador), ";
+                query+="upper(direccion_trabajador),";
+                query+="upper(tipo_cargo),";
+                query+="upper(nombre_cargo) ";
+                query+="from Trabajador";
         try{
-            String query = "SELECT  codigo_trabajador, UPPER(apellido_trabajador) apellido_trabajador, UPPER(nombre_trabajador) nombre_trabajador";
-                    query += "FROM Trabajador ";
-                   query += "ORDER BY apellido_trabajador ";
+            
             Statement  stmt = DataSource().createStatement();       
             ResultSet rs = stmt.executeQuery(query);            
             
         //Recuperacion de registros
         while(rs.next()){
+                Cargo cgo=new Cargo(rs.getString(7),rs.getString(8));
                 Trabajador trabaj = new Trabajador();
-                trabaj.setCodigo(rs.getString(1));
-                trabaj.setNombre(rs.getString(3));    
+                trabaj.setNombre(rs.getString(1));    
                 trabaj.setApellido(rs.getString(2));
+                trabaj.setCodigo(rs.getString(3));
+                trabaj.setTipoDocumento(rs.getString(4));
+                trabaj.setSexo(rs.getString(5));
+                trabaj.setDireccion(rs.getString(6));
+                trabaj.setCargo(cgo);
+                
                 data.add(trabaj); 
                       
             }
@@ -66,8 +83,27 @@ public class TrabajadorDao implements ITrabajador{
     }
 
     @Override
-    public Trabajador getTrabajador(String login) {
-        return null; //FALTA MODIFICAR
+    public Trabajador getTrabajador(String filtro) {
+        Trabajador tbjd = null;
+        String query="select* from Trabajador where codigo_trabajador = '?' ";
+        try{
+            Connection conn = obtenerConexion();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            Cargo cgo=new Cargo(rs.getString(7),rs.getString(8));
+            tbjd=new Trabajador(
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    cgo
+                    
+            
+            );
+        } catch(Exception ex) {System.out.println(ex.getMessage());}
+        return tbjd;
     }
 
     @Override
@@ -111,15 +147,48 @@ public class TrabajadorDao implements ITrabajador{
         //FALTA MODIFICAR
     }
 
-    //METODOS COMISIONADO
+    //METODOS COMISIONADO-------------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
-    public void addSolicitudViatico(SolicitudViatico obj) {
-        //FALTA MODIFICAR
+    public boolean addSolicitudViatico(SolicitudViatico obj) {
         boolean flag=false;
-        String query="INSERT INTO SolicitudV (codigo_solicitudV, codigo_trabajador, ) VALUES(?,?,?,?,?,?,?,?) ";
-        
+        String query="INSERT INTO SolicitudV (codigo_solicitudV, codigo_trabajador, fecha_solicitud, fecha_viaje_ida, fecha_viaje_retorno, tipo_viaje, monto_viatico) VALUES(?,?,?,?,?,?,?) ";
+        try(Connection con = obtenerConexion(); PreparedStatement stmt = con.prepareStatement(query)){
+            stmt.setString(1, obj.getCodSolicitud());
+            stmt.setString(2, obj.getComisionado().getCodigo());
+            stmt.setString(3, obj.getFechaSolicitud());
+            stmt.setString(4, obj.getFechaIda());
+            stmt.setString(5, obj.getFechaRetorno());
+            stmt.setString(6, obj.getTipoViaje());
+            stmt.setDouble(7, obj.getMonto().getMontoViatico());
+            flag = stmt.execute();
+        } catch(Exception ex){System.out.println(ex.getMessage());}
+        return flag;
     }
+    
+        @Override
+        public boolean addDocumentoAcreditadorGasto(DocumentoAcreditadorGasto obj) {
+            boolean flag=false; 
+            String query="INSERT INTO DocumentoAG (codigo_solicitudV, codigo_trabajador, nombre_empresa, codigo_DAG, tipo_DAG, descripcion_gasto, nombre_declarador, apellido_declarador, tipo_documento_del_declarador, documento_del_declarador, fecha_gasto, monto_gasto) VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ";
+            
+            try(Connection con=obtenerConexion(); PreparedStatement stmt=con.prepareStatement(query)){
+                stmt.setString(1, obj.getSolicitudV().getCodSolicitud());
+                stmt.setString(2, obj.getSolicitudV().getComisionado().getCodigo());
+                stmt.setString(3, obj.getNombreEmpresa());
+                stmt.setString(4, obj.getCodDoc());
+                stmt.setString(5, obj.getTipoDAG());
+                stmt.setString(6, obj.getDescripcionGasto());
+                stmt.setString(7, obj.getNombreDeclarador());
+                stmt.setString(8, obj.getApellidoDeclarador());
+                stmt.setString(9, obj.getTipoDocumentoDeclarador());
+                stmt.setString(10, obj.getDocumentoDeclarador());
+                stmt.setString(11, obj.getFechaGasto());
+                stmt.setDouble(12, obj.getMontoGasto());
+        
+            }   catch(Exception ex){System.out.println(ex.getMessage());}
+               
+            return flag; 
+        }
+    
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    
-    
 }

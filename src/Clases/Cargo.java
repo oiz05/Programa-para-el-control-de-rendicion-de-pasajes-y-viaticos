@@ -21,6 +21,14 @@ public class Cargo {
     public void setTipoCargo(String tipoCargo) {
         this.tipoCargo = tipoCargo;
     }
+
+    public Cargo(String nombreCargo, String tipoCargo) {
+        this.nombreCargo = nombreCargo;
+        this.tipoCargo = tipoCargo;
+    }
+
+    public Cargo() {
+    }
     
     
 }
