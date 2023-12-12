@@ -31,8 +31,9 @@ public class FrmTrabajador extends javax.swing.JFrame {
         this.modelo.addColumn("Tipo de Documento");
         this.modelo.addColumn("Sexo");
         this.modelo.addColumn("Direccion");
-        this.modelo.addColumn("Nombre de Cargo");
         this.modelo.addColumn("Tipo de Cargo");
+        this.modelo.addColumn("Nombre de Cargo");
+        
         
         
         
@@ -381,16 +382,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jTtrabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTtrabajadoresMouseClicked
-        int fila_seleccionada = jTtrabajadores.getSelectedRow();
-        tfCodigoTrabajador.setText(jTtrabajadores.getValueAt(fila_seleccionada, 0).toString());
-        tfNombre.setText(jTtrabajadores.getValueAt(fila_seleccionada, 1).toString());
-        tfApellidos.setText(jTtrabajadores.getValueAt(fila_seleccionada, 2).toString());
-        cbxTipodeDocumento.setSelectedItem(jTtrabajadores.getValueAt(fila_seleccionada, 3).toString());
-        cbxSexo.setSelectedItem(jTtrabajadores.getValueAt(fila_seleccionada, 4).toString());
-        tfDireccion.setText(jTtrabajadores.getValueAt(fila_seleccionada, 5).toString());
-        cbxNombreCargo.setSelectedItem(jTtrabajadores.getValueAt(fila_seleccionada, 6).toString());
-        cbxTipoCargo.setSelectedItem(jTtrabajadores.getValueAt(fila_seleccionada, 7).toString());
-        filas=fila_seleccionada;
+        
     
     }//GEN-LAST:event_jTtrabajadoresMouseClicked
 
@@ -429,8 +421,9 @@ public class FrmTrabajador extends javax.swing.JFrame {
         
         cTrabajador ctb=new cTrabajador();
         Trabajador aux=new Trabajador();
-        DefaultTableModel dtm=new DefaultTableModel();
         aux=ctb.getTrabajador(tfBusqueda.getText());
+        DefaultTableModel dtm = (DefaultTableModel) jTtrabajadores.getModel();
+        
         System.out.println(ctb.getTrabajador(tfBusqueda.getText()).getNombre());
         Vector fila = new Vector();
                 fila.add(aux.getNombre());
@@ -445,7 +438,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
                 
                 
                
-            
+         /*x   
             for (int i = 1; i <= dtm.getColumnCount(); i++) {
                 modelo.addColumn(dtm.getColumnName(i));
             }
@@ -465,7 +458,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
             
         //cTrabajador tbj=new cTrabajador();
         //tbj.getTrabajador(tfBusqueda.getText());
-        
+        */
         /*
         if(!tfBusqueda.getText().isEmpty()){
             cTrabajador ctr=new cTrabajador();

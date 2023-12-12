@@ -84,25 +84,40 @@ public class TrabajadorDao implements ITrabajador{
 
     @Override
     public Trabajador getTrabajador(String filtro) {
-        Trabajador tbjd = null;
-        String query="select * from Trabajador where codigo_trabajador like ?";
+        Trabajador tbjd = new Trabajador();
+        /*String query="SELECT nombre_trabajador, ";
+        query+="apellido_trabajador, ";
+        query+="codigo_trabajador, ";
+        query+="tipo_documento, ";
+        query+="sexo_trabajador, ";
+        query+="direccion_trabajador, ";
+        query+="tipo_cargo, ";
+        query+="nombre_cargo ";
+        query+="FROM Trabajador ";
+        query+="WHERE (nombre_trabajador =?) ";
+        */
+        String query="SELECT* FROM Trabajador WHERE (codigo_trabajador=?)";
         try{
-            Connection conn = obtenerConexion();
-            PreparedStatement stmt=conn.prepareStatement(query);
-            stmt.setString(1, "%" + "?" + "%");
-            ResultSet rs = stmt.executeQuery();
             
+            Statement  stmt = DataSource().createStatement();       
+            ResultSet rs = stmt.executeQuery(query); 
             
-            
-            Cargo cgo=new Cargo(rs.getString(7),rs.getString(8));
-            tbjd=new Trabajador();
-            tbjd.setNombre(rs.getString(1));
-            tbjd.setApellido(rs.getString(2));
-            tbjd.setCodigo(rs.getString(3));
-            tbjd.setTipoDocumento(rs.getString(4));
-            tbjd.setSexo(rs.getString(5));
-            tbjd.setDireccion(rs.getString(6));
-            tbjd.setCargo(cgo);
+          //  if(filtro.equalsIgnoreCase(rs.getString(3))){
+            while(rs.next()){
+                
+                
+                tbjd.setNombre(rs.getString(1));    
+                tbjd.setApellido(rs.getString(2));
+                tbjd.setCodigo(rs.getString(3));
+                tbjd.setTipoDocumento(rs.getString(4));
+                tbjd.setSexo(rs.getString(5));
+                tbjd.setDireccion(rs.getString(6));
+                Cargo cgo=new Cargo(rs.getString(8),rs.getString(7));
+                tbjd.setCargo(cgo);                
+                
+                      
+            }
+            //}
                     
         } catch(Exception ex) {System.out.println(ex.getMessage());}
         return tbjd;
