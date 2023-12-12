@@ -2,10 +2,11 @@ package Modelo;
 
 
 import Clases.Cargo;
-import Clases.DeclaracionJurada;
+import Clases.Comisionado;
 import Clases.DocumentoAcreditadorGasto;
 import Clases.SolicitudViatico;
 import Clases.Trabajador;
+import Clases.Viatico;
 import Interfacez.ITrabajador;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -167,6 +168,9 @@ public class TrabajadorDao implements ITrabajador{
         return flag;
     }
     
+    
+    
+    
         @Override
         public boolean addDocumentoAcreditadorGasto(DocumentoAcreditadorGasto obj) {
             boolean flag=false; 
@@ -192,5 +196,80 @@ public class TrabajadorDao implements ITrabajador{
         }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public List<SolicitudViatico> getSolicitudes() {
+         ArrayList<SolicitudViatico> data = new ArrayList<>();
+        String query="select ";
+                query+="upper(codigo_solicitudV), ";
+                query+="upper(codigo_trabajador), ";
+                query+="upper(fecha_solicitud), ";
+                query+="upper(fecha_viaje_ida), ";
+                query+="upper(fecha_viaje_retorno), ";
+                query+="upper(tipo_viaje), ";
+                query+="upper(monto_viatico), ";
+                query+="upper(estado_solicitudV)";
+                query+="from SolicitudV";
+        try{
+            
+            Statement  stmt = DataSource().createStatement();       
+            ResultSet rs = stmt.executeQuery(query);            
+            
+        //Recuperacion de registros
+        while(rs.next()){
+                
+                SolicitudViatico soli = new SolicitudViatico();
+                soli.setCodSolicitud(rs.getString(1));    
+                soli.setFechaSolicitud(rs.getString(3));
+                soli.setFechaIda(rs.getString(4));
+                soli.setFechaRetorno(rs.getString(5));
+                soli.setTipoViaje(rs.getString(6));
+                Comisionado comi = new Comisionado();
+                comi.setCodigo(rs.getString(2));
+                soli.setComisionado(comi);
+                Viatico montoVi = new Viatico();
+                montoVi.setMontoViatico(rs.getDouble(7));
+                soli.setMonto(montoVi); 
+                soli.setEstado(rs.getString(8));
+                data.add(soli);      
+            }
+        }catch(Exception ex){System.out.println(ex.getMessage());}
+        return data;
+    }
+
+    @Override
+    public SolicitudViatico getSolicitudViatico(String filtro) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void updateSolicitudViatico(SolicitudViatico obj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void deleteSolicitudViatico(String codigoSolicitud) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<DocumentoAcreditadorGasto> getDocumentos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public DocumentoAcreditadorGasto getDocumentoAcreditadorGasto(String filtro) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void updateDocumentoAcrditadorGasto(DocumentoAcreditadorGasto obj) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void deleteDocumentoAcreditadorGasto(String filtro) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

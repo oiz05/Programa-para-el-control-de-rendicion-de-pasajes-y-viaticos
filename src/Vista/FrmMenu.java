@@ -8,7 +8,7 @@ import Clases.Usuario;
 import Formularios.FrmComprobarVericidadDAG;
 import Formularios.FrmDevolverViaticoFaltante;
 import Formularios.FrmDevolverViaticoSobrante;
-import Formularios.FrmRealizarRendicionCuentas2;
+import Formularios.FrmRealizarRendicionCuentas;
 import Formularios.FrmRegistrarSolicitudViatico;
 import Formularios.FrmRemitirSolicitudAContador;
 import Formularios.FrmTrabajador;
@@ -256,7 +256,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        FrmRealizarRendicionCuentas2 realiRD = new FrmRealizarRendicionCuentas2();
+        FrmRealizarRendicionCuentas realiRD = new FrmRealizarRendicionCuentas();
         realiRD.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem16ActionPerformed

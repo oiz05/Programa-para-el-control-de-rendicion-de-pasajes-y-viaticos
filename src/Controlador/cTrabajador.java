@@ -28,6 +28,13 @@ public class cTrabajador {
       return objD.addSolicitudViatico(obj);
    }
    
+   public List<SolicitudViatico> getSolicitudes() {
+         TrabajadorDao objD=new TrabajadorDao();
+         return objD.getSolicitudes();
+   }
+   
+   
+   
    public boolean addDocumentoAcreditadorGasto(DocumentoAcreditadorGasto obj){
        TrabajadorDao objD=new TrabajadorDao();
        return objD.addDocumentoAcreditadorGasto(obj);
