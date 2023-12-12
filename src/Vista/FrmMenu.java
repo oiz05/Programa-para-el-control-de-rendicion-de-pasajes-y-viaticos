@@ -67,10 +67,6 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -79,7 +75,6 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -99,18 +94,6 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuItem2.setText("Solicitudes de Viatico");
         jMenu1.add(jMenuItem2);
-
-        jMenuItem4.setText("Reembolsos");
-        jMenu1.add(jMenuItem4);
-
-        jMenuItem5.setText("Depositos");
-        jMenu1.add(jMenuItem5);
-
-        jMenuItem6.setText("Rendiciones de Cuenta");
-        jMenu1.add(jMenuItem6);
-
-        jMenuItem7.setText("Comprobantes de Pago");
-        jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
 
@@ -167,14 +150,6 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Reportes");
-
-        jMenuItem11.setText("Revision Rendicion de Cuentas");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem11);
 
         jMenuItem12.setText("Verificar Solicitud de Viatico");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
@@ -261,10 +236,6 @@ public class FrmMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
-
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         FrmVerificacionSolicitudViatico veriSV = new FrmVerificacionSolicitudViatico();
         veriSV.setVisible(true);
@@ -289,17 +260,12 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem mnuUsuario;

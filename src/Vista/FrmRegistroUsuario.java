@@ -52,10 +52,15 @@ public class FrmRegistroUsuario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tfClave = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Login:");
 
@@ -154,6 +159,13 @@ public class FrmRegistroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Error en insertar");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        tfLogin.setText("");
+        tfClave.setText("");
+        cbxRol.setSelectedIndex(0);
+        cbxEmpleado.setSelectedIndex(0);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -27,7 +27,7 @@ public class UsuarioDao implements IUsuario{
         //Conexion BD
         try{
             String query = " INSERT INTO Usuario ";
-                   query += "(login, clave, nombre_cargo, codigo_trabajador) ";
+                   query += "(login, clave, rol_trabajador, codigo_trabajador) ";
                    query += " VALUES(?,?,?,?)";
             PreparedStatement  stmt = DataSource().prepareStatement(query);
             stmt.setString(1, obj.getLogin());
@@ -57,7 +57,7 @@ public class UsuarioDao implements IUsuario{
         //Conexion BD
         try{
             
-            String query = "SELECT tt.nombre_trabajador, tt.apellido_trabajador, uu.login, uu.nombre_cargo, uu.codigo_trabajador ";
+            String query = "SELECT tt.nombre_trabajador, tt.apellido_trabajador, uu.login, uu.rol_trabajador, uu.codigo_trabajador ";
                    query += "FROM Usuario uu ";
                    query += "inner join Trabajador tt on uu.codigo_trabajador = tt.codigo_trabajador ";
             Statement stmt = DataSource().createStatement();       
