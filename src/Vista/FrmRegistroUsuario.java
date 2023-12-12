@@ -71,6 +71,11 @@ public class FrmRegistroUsuario extends javax.swing.JFrame {
         jLabel4.setText("Empleado:");
 
         cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COMISIONADO", "ENCARGADO ADMINISTRATIVO", "CONTADOR", "TESORERO", "SYSTEM" }));
+        cbxRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxRolActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/save_as.png"))); // NOI18N
         btnGuardar.setText("Guardar");
@@ -166,6 +171,10 @@ public class FrmRegistroUsuario extends javax.swing.JFrame {
         cbxRol.setSelectedIndex(0);
         cbxEmpleado.setSelectedIndex(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cbxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxRolActionPerformed
 
     /**
      * @param args the command line arguments
