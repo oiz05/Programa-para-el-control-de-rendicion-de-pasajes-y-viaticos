@@ -22,9 +22,9 @@ public class TrabajadorDao implements ITrabajador{
     private Connection obtenerConexion() throws SQLException, ClassNotFoundException {
         // Establecer la conexión con la base de datos SQL Server
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://OSCARZARI\\SQLEXPRESS:1433;databaseName=CPasajesV;encrypt=false;trustServerCertificate=true;";
+        String url = "jdbc:sqlserver://95.217.180.168:1433;databaseName=ControlPV;encrypt=false;trustServerCertificate=true;";
         String usuario = "sa";
-        String contraseña = "oscar123";
+        String contraseña = "01K#cjWq3c";
         return DriverManager.getConnection(url, usuario, contraseña);
     
         }

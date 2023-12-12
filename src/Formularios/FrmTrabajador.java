@@ -405,12 +405,11 @@ public class FrmTrabajador extends javax.swing.JFrame {
         cTrabajador tbj=new cTrabajador();
 
         //Mostrar los datos
-        DefaultTableModel dtm = (DefaultTableModel) jTtrabajadores.getModel();
-            while (dtm.getRowCount() > 0) {
-                dtm.removeRow(0);
-            }
+            DefaultTableModel dtm = (DefaultTableModel) jTtrabajadores.getModel();
+            while(dtm.getRowCount()>0)dtm.removeRow(0);
+            Vector fila = new Vector();
             for (Trabajador aux : tbj.getTrabajadores()) {
-                Vector fila = new Vector();
+                
                 fila.add(aux.getNombre());
                 fila.add(aux.getApellido());
                 fila.add(aux.getCodigo());
@@ -433,7 +432,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
         //cTrabajador tbj=new cTrabajador();
         //tbj.getTrabajador(tfBusqueda.getText());
         
-          
+        /*
         if(!tfBusqueda.getText().isEmpty()){
             cTrabajador ctr=new cTrabajador();
             DefaultTableModel dtm = (DefaultTableModel) jTtrabajadores.getModel();
@@ -458,7 +457,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
             }
         }
        
-    
+    */
         //----------------------------------------------------------
         
     }//GEN-LAST:event_btnBuscarActionPerformed

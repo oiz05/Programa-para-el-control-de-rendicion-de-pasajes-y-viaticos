@@ -15,9 +15,9 @@ public class UsuarioDao implements IUsuario{
 
     private Connection obtenerConexion() throws SQLException {
         // Establecer la conexión con la base de datos SQL Server
-        String url = "jdbc:sqlserver://192.168.0.72:1433;databaseName=CPasajesV;encrypt=false;trustServerCertificate=true;";
+        String url = "jdbc:sqlserver://95.217.180.168:1433;databaseName=ControlPV;encrypt=false;trustServerCertificate=true;";
         String usuario = "sa";
-        String contraseña = "oscar123";
+        String contraseña = "01K#cjWq3c";
         return DriverManager.getConnection(url, usuario, contraseña);
     
         }
@@ -93,7 +93,7 @@ public class UsuarioDao implements IUsuario{
         Usuario data = new Usuario();
         //Conexion BD
         try{
-            String query = "SELECT uu.nombre_cargo, uu.login ";
+            String query = "SELECT uu.clave, uu.login ";
                    query += "FROM Usuario uu ";
                    query += "WHERE uu.login = ? and uu.clave = ? ";
             PreparedStatement  stmt = DataSource().prepareStatement(query);
