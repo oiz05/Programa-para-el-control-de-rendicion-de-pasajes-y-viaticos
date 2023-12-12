@@ -17,6 +17,6 @@ public class cUsuario {
    
    public boolean add(Usuario obj) {
        UsuarioDao objD = new UsuarioDao();
-       return objD.add(obj);
+       return objD.addUsuario(obj);
    }
 }

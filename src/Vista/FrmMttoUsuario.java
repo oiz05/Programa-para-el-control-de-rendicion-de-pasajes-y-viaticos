@@ -22,6 +22,7 @@ public class FrmMttoUsuario extends javax.swing.JFrame {
      */
     public FrmMttoUsuario() {
         initComponents();
+        
     }
 
     /**
@@ -59,6 +60,11 @@ public class FrmMttoUsuario extends javax.swing.JFrame {
                 "Nombres", "Apellidos", "Login", "Rol"
             }
         ));
+        tDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tDatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tDatos);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 790, 230));
@@ -97,6 +103,11 @@ public class FrmMttoUsuario extends javax.swing.JFrame {
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/user_delete.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
@@ -129,6 +140,18 @@ public class FrmMttoUsuario extends javax.swing.JFrame {
         FrmRegistroUsuario objNuevo = new FrmRegistroUsuario();
         objNuevo.setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void tDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDatosMouseClicked
+        int filaSeleccionada = tDatos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+                    // Habilitar el botón de eliminar cuando se selecciona una fila
+                    btnEliminar.setEnabled(true);
+                }
+    }//GEN-LAST:event_tDatosMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

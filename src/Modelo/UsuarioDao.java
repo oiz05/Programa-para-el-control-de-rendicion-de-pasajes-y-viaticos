@@ -22,7 +22,7 @@ public class UsuarioDao implements IUsuario{
     
         }
     @Override
-    public boolean add(Usuario obj) {
+    public boolean addUsuario(Usuario obj) {
        boolean flag=false; 
         //Conexion BD
         try{
@@ -42,14 +42,35 @@ public class UsuarioDao implements IUsuario{
     }
 
     @Override
-    public boolean update(Usuario obj) {
+    public boolean updateUsuario(Usuario obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean delete(String login) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean deleteUsuario(String login) {
+        boolean flag=false;
+        
+        try {
+            String query = "DELETE FROM Usuario WHERE login = ?";
+            PreparedStatement  stmt = DataSource().prepareStatement(query);
+            stmt.setString(1, login);
+            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                System.out.println("Usuario eliminado correctamente.");
+            } else {
+                System.out.println("No se encontró ningún usuario con el login proporcionado.");
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar usuario: " + e.getMessage());
+        }
+        return flag;
+        
     }
+    
+
 
     @Override
     public List<Usuario> getUsuarios() {
