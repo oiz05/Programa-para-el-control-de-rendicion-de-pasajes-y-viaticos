@@ -64,7 +64,7 @@ public class TrabajadorDao implements ITrabajador{
             
         //Recuperacion de registros
         while(rs.next()){
-                Cargo cgo=new Cargo(rs.getString(7),rs.getString(8));
+                
                 Trabajador trabaj = new Trabajador();
                 trabaj.setNombre(rs.getString(1));    
                 trabaj.setApellido(rs.getString(2));
@@ -72,8 +72,8 @@ public class TrabajadorDao implements ITrabajador{
                 trabaj.setTipoDocumento(rs.getString(4));
                 trabaj.setSexo(rs.getString(5));
                 trabaj.setDireccion(rs.getString(6));
-                trabaj.setCargo(cgo);
-                
+                Cargo cgo=new Cargo(rs.getString(7),rs.getString(8));
+                trabaj.setCargo(cgo);                
                 data.add(trabaj); 
                       
             }
@@ -85,23 +85,25 @@ public class TrabajadorDao implements ITrabajador{
     @Override
     public Trabajador getTrabajador(String filtro) {
         Trabajador tbjd = null;
-        String query="select* from Trabajador where codigo_trabajador = '?' ";
+        String query="select * from Trabajador where codigo_trabajador like ?";
         try{
             Connection conn = obtenerConexion();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            Cargo cgo=new Cargo(rs.getString(7),rs.getString(8));
-            tbjd=new Trabajador(
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    cgo
-                    
+            PreparedStatement stmt=conn.prepareStatement(query);
+            stmt.setString(1, "%" + "?" + "%");
+            ResultSet rs = stmt.executeQuery();
             
-            );
+            
+            
+            Cargo cgo=new Cargo(rs.getString(7),rs.getString(8));
+            tbjd=new Trabajador();
+            tbjd.setNombre(rs.getString(1));
+            tbjd.setApellido(rs.getString(2));
+            tbjd.setCodigo(rs.getString(3));
+            tbjd.setTipoDocumento(rs.getString(4));
+            tbjd.setSexo(rs.getString(5));
+            tbjd.setDireccion(rs.getString(6));
+            tbjd.setCargo(cgo);
+                    
         } catch(Exception ex) {System.out.println(ex.getMessage());}
         return tbjd;
     }

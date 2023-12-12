@@ -25,9 +25,9 @@ public class FrmTrabajador extends javax.swing.JFrame {
         dtm= (DefaultTableModel) jTtrabajadores.getModel();+*/
         initComponents();
         this.jTtrabajadores.setModel(modelo);
-        this.modelo.addColumn("Codigo de trabajador");
         this.modelo.addColumn("Nombre");
         this.modelo.addColumn("Apellidos");
+        this.modelo.addColumn("Codigo de trabajador");
         this.modelo.addColumn("Tipo de Documento");
         this.modelo.addColumn("Sexo");
         this.modelo.addColumn("Direccion");
@@ -407,9 +407,9 @@ public class FrmTrabajador extends javax.swing.JFrame {
         //Mostrar los datos
             DefaultTableModel dtm = (DefaultTableModel) jTtrabajadores.getModel();
             while(dtm.getRowCount()>0)dtm.removeRow(0);
-            Vector fila = new Vector();
+            
             for (Trabajador aux : tbj.getTrabajadores()) {
-                
+                Vector fila = new Vector();
                 fila.add(aux.getNombre());
                 fila.add(aux.getApellido());
                 fila.add(aux.getCodigo());
@@ -427,8 +427,42 @@ public class FrmTrabajador extends javax.swing.JFrame {
         //BASE DE DATOS---------------------------------------------
         //BUSCAR POR CODIGO_TRABAJADOR EN LA BASE DE DATOS:
         
-        
-        
+        cTrabajador ctb=new cTrabajador();
+        Trabajador aux=new Trabajador();
+        DefaultTableModel dtm=new DefaultTableModel();
+        aux=ctb.getTrabajador(tfBusqueda.getText());
+        System.out.println(ctb.getTrabajador(tfBusqueda.getText()).getNombre());
+        Vector fila = new Vector();
+                fila.add(aux.getNombre());
+                fila.add(aux.getApellido());
+                fila.add(aux.getCodigo());
+                fila.add(aux.getTipoDocumento());
+                fila.add(aux.getSexo());
+                fila.add(aux.getDireccion());
+                fila.add(aux.getCargo().getTipoCargo());
+                fila.add(aux.getCargo().getNombreCargo());
+                dtm.addRow(fila);
+                
+                
+               
+            
+            for (int i = 1; i <= dtm.getColumnCount(); i++) {
+                modelo.addColumn(dtm.getColumnName(i));
+            }
+
+            // Llenar el modelo con los datos de la consulta
+            while (resultado.next()) {
+                Object[] fila = new Object[numColumnas];
+                for (int i = 1; i <= numColumnas; i++) {
+                    fila[i - 1] = resultado.getObject(i);
+                }
+                modelo.addRow(fila);
+            }
+
+            // Mostrar los resultados en la tabla
+            tablaResultados.setModel(modelo);
+            
+            
         //cTrabajador tbj=new cTrabajador();
         //tbj.getTrabajador(tfBusqueda.getText());
         
