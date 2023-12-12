@@ -19,7 +19,11 @@ public class Trabajador {
         this.nombre = nombre;
         this.apellido = apellido;
     }
-    
+
+    public Trabajador(String codigo) {
+        this.codigo = codigo;
+    }
+     
     
 
     public Trabajador(String codigo, String nombre, String apellido, String tipoDocumento, String sexo, String direccion, Cargo cargo) {

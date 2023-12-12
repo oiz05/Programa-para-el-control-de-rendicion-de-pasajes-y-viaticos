@@ -10,11 +10,12 @@ public class SolicitudViatico {
     private String fechaRetorno;
     private String tipoViaje;
     private Viatico monto;
+    private String estado;
 
     public SolicitudViatico() {
     }
 
-    public SolicitudViatico(String codSolicitud, Comisionado comisionado, String fechaSolicitud, String fechaIda, String fechaRetorno, String tipoViaje, Viatico monto) {
+    public SolicitudViatico(String codSolicitud, Comisionado comisionado, String fechaSolicitud, String fechaIda, String fechaRetorno, String tipoViaje, Viatico monto, String estado) {
         this.codSolicitud = codSolicitud;
         this.comisionado = comisionado;
         this.fechaSolicitud = fechaSolicitud;
@@ -22,9 +23,10 @@ public class SolicitudViatico {
         this.fechaRetorno = fechaRetorno;
         this.tipoViaje = tipoViaje;
         this.monto = monto;
+        this.estado = estado;
     }
 
-    public String getCodSolicitud() {
+       public String getCodSolicitud() {
         return codSolicitud;
     }
 
@@ -78,6 +80,14 @@ public class SolicitudViatico {
 
     public void setMonto(Viatico monto) {
         this.monto = monto;
+    }
+     
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     

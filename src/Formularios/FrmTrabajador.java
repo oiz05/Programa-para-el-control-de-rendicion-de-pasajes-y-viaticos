@@ -79,7 +79,7 @@ public class FrmTrabajador extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cbxTipoCargo = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTtrabajadores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

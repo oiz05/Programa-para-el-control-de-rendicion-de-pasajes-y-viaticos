@@ -2,9 +2,12 @@
 package Formularios;
 
 
+import Clases.SolicitudViatico;
+import Controlador.cTrabajador;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import Formularios.FrmRegistrarSolicitudViatico;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
     DefaultTableModel modelo = new DefaultTableModel();
@@ -13,10 +16,15 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
    
     public FrmVerificacionSolicitudViatico() {
         initComponents();
-        this.jVerificacionSolicitudes.setModel(modelo);
+        this.jTListado.setModel(modelo);
         this.modelo.addColumn("Codigo de Solicitud");
-        this.modelo.addColumn("Codigo de Comisionado");
-        this.modelo.addColumn("Estado de Solicitud");
+        this.modelo.addColumn("Codigo del Remitente");
+        this.modelo.addColumn("Fecha de la Solicitud");
+        this.modelo.addColumn("Fecha de Ida");
+        this.modelo.addColumn("Fecha de Retorno");
+        this.modelo.addColumn("Tipo de Viaje");
+        this.modelo.addColumn("Monto");
+        this.modelo.addColumn("Estado de solicitud");
         
     }
 
@@ -32,38 +40,31 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtBusqueda = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        tfBusqueda = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         cbxEstado = new javax.swing.JComboBox<>();
-        tfCodigoSolicitud = new javax.swing.JTextField();
-        tfCodigoComisionado = new javax.swing.JTextField();
         btnEditar1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jVerificacionSolicitudes = new javax.swing.JTable();
+        jTListado = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Verificacion de Solicitudes de Viaticos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Búsqueda:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
-        jPanel1.add(txtBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 130, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/find.png"))); // NOI18N
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        tfBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                tfBusquedaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
+        jPanel1.add(tfBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 150, -1));
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -72,7 +73,7 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pencil_add.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
@@ -81,16 +82,10 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
-
-        jLabel1.setText("Codigo de Solicitud:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
-
-        jLabel3.setText("Codigo de Comisionado:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
+        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, -1, -1));
 
         jLabel4.setText("Estado de Solicitud:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 110, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 110, -1));
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/save_as.png"))); // NOI18N
         btnGuardar.setText("Guardar");
@@ -99,12 +94,10 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, -1, -1));
 
         cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aprobado", "Denegado", " " }));
-        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 140, -1));
-        jPanel1.add(tfCodigoSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 140, -1));
-        jPanel1.add(tfCodigoComisionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 140, -1));
+        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 140, -1));
 
         btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/layer_edit.png"))); // NOI18N
         btnEditar1.setText("Editar");
@@ -113,33 +106,51 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
                 btnEditar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEditar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, -1, -1));
+        jPanel1.add(btnEditar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, -1, -1));
 
-        jVerificacionSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTListado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jVerificacionSolicitudesMouseClicked(evt);
+                jTListadoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jVerificacionSolicitudes);
+        jTListado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTListadoKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTListado);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 570, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 690, 300));
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/find.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int fila_seleccionada = jVerificacionSolicitudes.getSelectedRow();
+        /*int fila_seleccionada = jVerificacionSolicitudes.getSelectedRow();
         if(fila_seleccionada>=0){
             modelo.removeRow(fila_seleccionada);
         }else{
@@ -148,65 +159,72 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
         
         tfCodigoSolicitud.setText("");
         tfCodigoComisionado.setText("");
-        cbxEstado.setSelectedIndex(0);
+        cbxEstado.setSelectedIndex(0);*/
          
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-        
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        tfCodigoSolicitud.setText("");
-        tfCodigoComisionado.setText("");
-        cbxEstado.setSelectedIndex(0); 
+        
     }//GEN-LAST:event_btnNuevoActionPerformed
     int filas;
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
-        // TODO add your handling code here:
-        String []datos=new String[3];
-        datos[0]=tfCodigoSolicitud.getText();
-        datos[1]=tfCodigoComisionado.getText();
-        datos[2]=cbxEstado.getSelectedItem().toString();
+        String []datos=new String[8];
+        datos[7]=cbxEstado.getSelectedItem().toString();
         
-        
-        
-        for(int i=0; i<jVerificacionSolicitudes.getColumnCount();i++){
+        for(int i=0; i<jTListado.getColumnCount();i++){
             modelo.setValueAt(datos[i], filas, i);
-        } 
+        }
+        
     }//GEN-LAST:event_btnEditar1ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
         
-        this.modelo.addRow(new Object[]{
-            this.tfCodigoSolicitud.getText(),
-            this.tfCodigoComisionado.getText(),
-            this.cbxEstado.getSelectedItem(),
-            
-        });
         
-        JOptionPane.showMessageDialog(this, "La verificacion de solicitud se ha realizado correctamente.");
         
-        tfCodigoSolicitud.setText("");
-        tfCodigoComisionado.setText("");
-        cbxEstado.setSelectedIndex(0);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jVerificacionSolicitudesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jVerificacionSolicitudesMouseClicked
+    private void tfBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBusquedaActionPerformed
         // TODO add your handling code here:
-        int fila_seleccionada = jVerificacionSolicitudes.getSelectedRow();
-        tfCodigoSolicitud.setText(jVerificacionSolicitudes.getValueAt(fila_seleccionada, 0).toString());
-        tfCodigoComisionado.setText(jVerificacionSolicitudes.getValueAt(fila_seleccionada, 1).toString());
-        cbxEstado.setSelectedItem(jVerificacionSolicitudes.getValueAt(fila_seleccionada, 2).toString());
+    }//GEN-LAST:event_tfBusquedaActionPerformed
 
+    private void jTListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTListadoMouseClicked
+        int fila_seleccionada = jTListado.getSelectedRow();
+        cbxEstado.setSelectedItem(jTListado.getValueAt(fila_seleccionada, 7).toString());
         filas=fila_seleccionada;
-    }//GEN-LAST:event_jVerificacionSolicitudesMouseClicked
+    }//GEN-LAST:event_jTListadoMouseClicked
+
+    private void jTListadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTListadoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTListadoKeyPressed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // String cod=tfBusqueda.getText();
+        // int i=0;
+        // TODO add your handling code here:
+        //BOTON LISTAR----------------------------------------------------------
+        if(tfBusqueda.getText().isEmpty()){
+            cTrabajador tbj=new cTrabajador();
+
+            //Mostrar los datos
+            DefaultTableModel dtm = (DefaultTableModel) jTListado.getModel();
+            while(dtm.getRowCount()>0)dtm.removeRow(0);
+
+            for (SolicitudViatico aux : tbj.getSolicitudes()) {
+                Vector fila = new Vector();
+                fila.add(aux.getCodSolicitud());
+                fila.add(aux.getComisionado().getCodigo());
+                fila.add(aux.getFechaSolicitud());
+                fila.add(aux.getFechaIda());
+                fila.add(aux.getFechaRetorno());
+                fila.add(aux.getTipoViaje());
+                fila.add(aux.getMonto().getMontoViatico());
+                fila.add(aux.getEstado());
+                dtm.addRow(fila);
+            }
+        }
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,16 +273,12 @@ public class FrmVerificacionSolicitudViatico extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox<String> cbxEstado;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jVerificacionSolicitudes;
-    private javax.swing.JTextField tfCodigoComisionado;
-    private javax.swing.JTextField tfCodigoSolicitud;
-    private javax.swing.JTextField txtBusqueda;
+    private javax.swing.JTable jTListado;
+    private javax.swing.JTextField tfBusqueda;
     // End of variables declaration//GEN-END:variables
 
     /*private void getListado() {

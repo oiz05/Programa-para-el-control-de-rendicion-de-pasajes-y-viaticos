@@ -8,9 +8,10 @@ package Formularios;
 
 import Clases.Comisionado;
 import Clases.SolicitudViatico;
+import Clases.Trabajador;
 import Clases.Viatico;
 import Controlador.cTrabajador;
-import EstructuraDeDatos.*;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +28,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     
     private DefaultTableModel dtm;
     //private Object[] o=new Object[7];*/
-    public ArregloSolicitudViatico arreglo1=new ArregloSolicitudViatico();
+    
     
     
     
@@ -46,11 +47,13 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         this.jTListado.setModel(modelo);
         this.modelo.addColumn("Codigo de Solicitud");
         this.modelo.addColumn("Codigo del Remitente");
-        this.modelo.addColumn("Monto");
-        this.modelo.addColumn("Tipo de Viaje");
+        this.modelo.addColumn("Fecha de la Solicitud");
         this.modelo.addColumn("Fecha de Ida");
         this.modelo.addColumn("Fecha de Retorno");
-        this.modelo.addColumn("Fecha de la Solicitud");
+        this.modelo.addColumn("Tipo de Viaje");
+        this.modelo.addColumn("Monto");
+        //this.modelo.addColumn("Estado de solicitud");
+
         //dtm= (DefaultTableModel) jTListado.getModel();
         
         RegistroSV = new javax.swing.JPanel();
@@ -98,7 +101,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         tfFecha = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Búsqueda de solicitud:");
 
@@ -283,7 +286,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
      
-       CrearArregloSV();
+
        
        this.modelo.addRow(new Object[]{
             this.tfCodigoSolicitud.getText(),
@@ -301,7 +304,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
         cmdo.setCodigo(tfCodigoComisionado.getText());
         Viatico vtc=new Viatico();
         vtc.setMontoViatico(Double.parseDouble(tfMonto.getText()));
-        SolicitudViatico sv1=new SolicitudViatico(tfCodigoSolicitud.getText(), cmdo, tfFecha.getText(), tfFechaIda.getText(), tfFechaRetorno.getText(), cbxTipoViaje.getSelectedItem().toString(), vtc );
+        SolicitudViatico sv1=new SolicitudViatico(tfCodigoSolicitud.getText(), cmdo, tfFecha.getText(), tfFechaIda.getText(), tfFechaRetorno.getText(), cbxTipoViaje.getSelectedItem().toString(), vtc,null );
         cTrabajador ctb1=new cTrabajador();
         ctb1.addSolicitudViatico(sv1);
        
@@ -329,22 +332,29 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
        // String cod=tfBusqueda.getText();
        // int i=0;
-        
-        
-        
-        for(int i=0; i<=dtm.getRowCount(); i++){
-           if(tfBusqueda.getText().equals(arreglo1.getSolicitudViaticoByIndex(i).getCodSolicitud())){
-               trsFiltro=new TableRowSorter(jTListado.getModel());
-               jTListado.setRowSorter(trsFiltro); 
-               trsFiltro.setRowFilter(RowFilter.regexFilter(tfBusqueda.getText(), 0));
-               break;
-           
-          
-        } 
-       
-        //String bqd=tfBusqueda.getText();
-        
+       // TODO add your handling code here:
+        //BOTON LISTAR----------------------------------------------------------
+        if(tfBusqueda.getText().isEmpty()){
+        cTrabajador tbj=new cTrabajador();
+
+        //Mostrar los datos
+            DefaultTableModel dtm = (DefaultTableModel) jTListado.getModel();
+            while(dtm.getRowCount()>0)dtm.removeRow(0);
+            
+            for (SolicitudViatico aux : tbj.getSolicitudes()) {
+                Vector fila = new Vector();
+                fila.add(aux.getCodSolicitud());
+                fila.add(aux.getComisionado().getCodigo());
+                fila.add(aux.getFechaSolicitud());
+                fila.add(aux.getFechaIda());
+                fila.add(aux.getFechaRetorno());
+                fila.add(aux.getTipoViaje());
+                fila.add(aux.getMonto().getMontoViatico());
+                dtm.addRow(fila);
+            }
         }
+        
+        
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -498,32 +508,7 @@ public class FrmRegistrarSolicitudViatico extends javax.swing.JFrame {
     private javax.swing.JTextField tfMonto;
     // End of variables declaration//GEN-END:variables
 
-    private void CrearArregloSV() {
-        
-       
-        
-        Comisionado cmdo=new Comisionado();
-        cmdo.setCodigo(tfCodigoComisionado.getText());
-        arreglo1.addSolicitudViatico(new SolicitudViatico(tfCodigoSolicitud.getText(),cmdo, tfFecha.getText(), tfFechaIda.getText(), tfFechaRetorno.getText(),cbxTipoViaje.getSelectedItem().toString(), new Viatico(Double.parseDouble(tfMonto.getText()))));
-        
-       // System.out.println(arreglo1.getSolicitudViaticoByIndex(0).getFechaIda());
-        
-        /*o[0]=tfCodigoSolicitud.getText().trim();
-        //o[0]=arreglo1.getSolicitudViaticoByIndex(0).getCodSolicitud();
-        o[1]=tfCodigoRemitente.getText().trim();
-        //o[1]=arreglo1.getSolicitudViaticoByIndex(0).getCodRemitente();
-        o[2]=tfFecha.getText();
-        //o[2]=arreglo1.getSolicitudViaticoByIndex(0).getFechaSolicitud();
-        o[3]=cbxTipoViaje.getSelectedItem().toString();
-        //o[3]=arreglo1.getSolicitudViaticoByIndex(0).getTipoViaje();
-        o[4]=tfFechaIda.getText();
-        //o[4]=arreglo1.getSolicitudViaticoByIndex(0).getFechaIda();
-        o[5]=tfFechaRetorno.getText().trim();
-        //o[5]=arreglo1.getSolicitudViaticoByIndex(0).getFechaRetorno();
-        o[6]=tfMonto.getText();
-        //o[6]=arreglo1.getSolicitudViaticoByIndex(0).getMonto();
-        dtm.addRow(o);*/
-    }
+    
 
     
 

@@ -5,8 +5,6 @@
 package Formularios;
 
 import Clases.Comisionado;
-import Clases.ComprobantePago;
-import Clases.DeclaracionJurada;
 import Clases.DocumentoAcreditadorGasto;
 import Clases.SolicitudViatico;
 import Controlador.cTrabajador;

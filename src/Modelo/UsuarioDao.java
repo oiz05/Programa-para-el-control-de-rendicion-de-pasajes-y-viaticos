@@ -22,12 +22,12 @@ public class UsuarioDao implements IUsuario{
     
         }
     @Override
-    public boolean add(Usuario obj) {
+    public boolean addUsuario(Usuario obj) {
        boolean flag=false; 
         //Conexion BD
         try{
             String query = " INSERT INTO Usuario ";
-                   query += "(login, clave, nombre_cargo, codigo_trabajador) ";
+                   query += "(login, clave, rol_trabajador, codigo_trabajador) ";
                    query += " VALUES(?,?,?,?)";
             PreparedStatement  stmt = DataSource().prepareStatement(query);
             stmt.setString(1, obj.getLogin());
@@ -42,14 +42,35 @@ public class UsuarioDao implements IUsuario{
     }
 
     @Override
-    public boolean update(Usuario obj) {
+    public boolean updateUsuario(Usuario obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean delete(String login) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean deleteUsuario(String login) {
+        boolean flag=false;
+        
+        try {
+            String query = "DELETE FROM Usuario WHERE login = ?";
+            PreparedStatement  stmt = DataSource().prepareStatement(query);
+            stmt.setString(1, login);
+            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                System.out.println("Usuario eliminado correctamente.");
+            } else {
+                System.out.println("No se encontró ningún usuario con el login proporcionado.");
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar usuario: " + e.getMessage());
+        }
+        return flag;
+        
     }
+    
+
 
     @Override
     public List<Usuario> getUsuarios() {
@@ -57,7 +78,7 @@ public class UsuarioDao implements IUsuario{
         //Conexion BD
         try{
             
-            String query = "SELECT tt.nombre_trabajador, tt.apellido_trabajador, uu.login, uu.nombre_cargo, uu.codigo_trabajador ";
+            String query = "SELECT tt.nombre_trabajador, tt.apellido_trabajador, uu.login, uu.rol_trabajador, uu.codigo_trabajador ";
                    query += "FROM Usuario uu ";
                    query += "inner join Trabajador tt on uu.codigo_trabajador = tt.codigo_trabajador ";
             Statement stmt = DataSource().createStatement();       
