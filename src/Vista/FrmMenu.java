@@ -5,6 +5,7 @@
 package Vista;
 
 import Clases.Usuario;
+import Controlador.cUsuario;
 import Formularios.FrmComprobarVericidadDAG;
 import Formularios.FrmDevolverViaticoFaltante;
 import Formularios.FrmDevolverViaticoSobrante;
@@ -35,6 +36,8 @@ public class FrmMenu extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //Habilitar o Deshabilitar opciones
+        cUsuario cU=new cUsuario();
+        
         if(user.getNombre_cargo().equals("COMISIONADO"))
         {
             this.jProcesos.setEnabled(false);
